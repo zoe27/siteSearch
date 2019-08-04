@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<title>跳转中...</title>
+</head>
+
+<input type="hidden" th:value="${url}" id="dest_url"/>
+
+<script>
+var URI = document.getElementById("dest_url").value;
+//URI = "http://www.baidu.com";
+window.location.href=decodeURIComponent(URI);
+</script>
+</html>

@@ -12,11 +12,13 @@ package cn.com.site.page;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 主入口函数
  */
 @SpringBootApplication
+@ComponentScan("cn.com.site")
 public class App {
 
 	/**

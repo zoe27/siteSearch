@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>result</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+ <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<link th:href="@{/css/my.css}" rel="stylesheet" type="text/css"
+	media="all" />
+
+<script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+<header th:replace="common/top_header_result :: header"></header>
+<div class="bg-white">
+	<div class="developer-toolbag-block">
+		<div class="AGrid-row  tool-package" id = "result_show">
+			
+			
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// 直接访问的页面
+	if(document.referrer == ""){
+		localStorage.searchKey="";
+	}
+	if(localStorage["searchKey"] != ""){
+		$("#ipt").val(localStorage["searchKey"]);
+		$('#su_search').click();
+	}
+</script>
+</body>
+</html>
