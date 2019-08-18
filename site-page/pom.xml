@@ -29,4 +29,63 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- 使用spring-boot带的打包方式，注意下面的配置 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<mainClass>cn.com.site.page.App</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 将所有依赖打包到一起 -->
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					get all project dependencies
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					MainClass in mainfest make a executable jar
+					<archive>
+						<manifest>
+							<mainClass>cn.com.site.page.App</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						bind to the packaging phase
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+
+
+			<!-- 指定主函数 -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+				<configuration> <archive> <manifest> <mainClass>cn.com.site.page.App</mainClass> 
+				<addClasspath>true</addClasspath> <classpathPrefix>lib/</classpathPrefix> 
+				</manifest> </archive> <classesDirectory> </classesDirectory> </configuration> 
+				</plugin> -->
+		</plugins>
+	</build>
 </project>
