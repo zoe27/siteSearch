@@ -17,7 +17,7 @@
 
 		<dependency>
 			<groupId>cn.com.ruoyixi</groupId>
-			<artifactId>site-es</artifactId>
+			<artifactId>site-es-v1</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

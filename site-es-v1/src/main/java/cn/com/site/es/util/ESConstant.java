@@ -1,17 +1,23 @@
 package cn.com.site.es.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 /**
  * es相关的常量
  * @author zhoubin
  *
  */
+@Component
 public class ESConstant {
 	
 	// ES的ip列表
-	public static final String NODE_IP = "192.168.199.186";//"127.0.0.1";
+	@Value("${es.ip}")
+	public static String NODE_IP;// = "192.168.199.186";//"172.17.0.2";// 
 	
 	// ES的端口
-	public static final int PORT = 9300;
+	@Value("${es.port}")
+	public static int PORT;// = 9300;
 	
 	public enum ES_SITE_INFO{
 		TYPE("site"),

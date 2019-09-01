@@ -29,6 +29,7 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cn.com.site.es.conf.EsConfInfo;
 import cn.com.site.es.util.ESConstant;
 
 /**
@@ -44,6 +45,9 @@ public class ESClient {
 
 	@Autowired
 	private ESSettings settings;
+	
+	@Autowired
+	private EsConfInfo esConfInfo;
 
 	/**
 	 * log日志
@@ -81,15 +85,16 @@ public class ESClient {
 	 */
 	@PostConstruct
 	public TransportClient initClient() {
-		String nodes = ESConstant.NODE_IP;
-		int port = ESConstant.PORT;
+		String nodes = esConfInfo.getIp();//ESConstant.NODE_IP;
+		int port = esConfInfo.getPort();//ESConstant.PORT;
 		// Splitter.maps
 
 		String clusterName = "elasticsearch";
-		Settings settings = Settings.builder().put("cluster.name", clusterName).put("clinet.transport.sniff", true)
+		Settings settings = Settings.builder().put("cluster.name", clusterName)//.put("clinet.transport.sniff", true)
 				.build();
 		TransportClient client = new PreBuiltTransportClient(Settings.EMPTY);
 		try {
+			logger.info("es ip is " + nodes + " and port is " + port);
 			client.addTransportAddress(new TransportAddress(InetAddress.getByName(nodes), port));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -282,10 +287,10 @@ public class ESClient {
 
 			SearchRequestBuilder requestBuilder = client.prepareSearch(index).setTypes(type);
 			BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-			queryBuilder//.should(QueryBuilders.matchQuery(ESConstant.TITLE, query))
+			queryBuilder.should(QueryBuilders.matchQuery(ESConstant.TITLE, query).boost(1.0f))
 					.should(QueryBuilders.termQuery(ESConstant.TITLE, query))
-					.should(QueryBuilders.termQuery(ESConstant.KEY_WORDS, query));
-					//.should(QueryBuilders.matchQuery(ESConstant.KEY_WORDS, query));
+					.should(QueryBuilders.termQuery(ESConstant.KEY_WORDS, query))
+					.should(QueryBuilders.matchQuery(ESConstant.KEY_WORDS, query).boost(0.5f));
 			// 字段排序，后续补上
 			// requestBuilder.addSort(field, order)
 			requestBuilder.setFrom(0).setSize(20);

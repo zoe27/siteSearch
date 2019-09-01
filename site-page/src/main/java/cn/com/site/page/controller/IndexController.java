@@ -43,5 +43,10 @@ public class IndexController {
 	public String search() {
 		return "search";
 	}
+	
+	@RequestMapping("/")
+	public String index() {
+		return "search";
+	}
 }
 

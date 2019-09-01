@@ -174,5 +174,6 @@
 	<modules>
 		<module>site-page</module>
 		<module>site-es</module>
+		<module>site-es-v1</module>
 	</modules>
 </project>
