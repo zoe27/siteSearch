@@ -72,7 +72,7 @@ public class ESMappings {
 
 	public String getCommonMappings() {
 		String analyzer = "zh_analyzer";
-		String enAnalyzer = "ngram_analyzer";
+		//String enAnalyzer = "ngram_analyzer";
 		String json = null;
 		try {
 			XContentBuilder builder = XContentFactory.jsonBuilder()
@@ -83,7 +83,7 @@ public class ESMappings {
 					
 					.startObject("properties")
 					.startObject("an").field("type", "text").field("analyzer", analyzer).field("search_analyzer",analyzer).endObject()
-					.startObject("ean").field("type", "text").field("analyzer", enAnalyzer).field("search_analyzer",enAnalyzer).endObject()
+					.startObject("ean").field("type", "text").field("analyzer", analyzer).field("search_analyzer",analyzer).endObject()
 					.endObject()
 					.endObject();
 			json = builder.toString();
@@ -95,7 +95,7 @@ public class ESMappings {
 
 	public XContentBuilder getCommonMappingsBuilder() {
 		String analyzer = "zh_analyzer";
-		String enAnalyzer = "ngram_analyzer";
+		//String enAnalyzer = "ngram_analyzer";
 		XContentBuilder builder = null;
 		try {
 			builder = XContentFactory.jsonBuilder()
@@ -105,8 +105,8 @@ public class ESMappings {
 //					.endObject()
 //					
 					.startObject("properties")
-					.startObject("title").field("type", "text").field("analyzer", analyzer).field("search_analyzer",analyzer).endObject()
-					.startObject("key_words").field("type", "text").field("analyzer", enAnalyzer).field("search_analyzer",enAnalyzer).endObject()
+					.startObject("title").field("type", "text").field("analyzer", analyzer).field("search_analyzer","ik_smart").endObject() // 分词用ik_max，查询用ik_smart
+					.startObject("key_words").field("type", "text").field("analyzer", analyzer).field("search_analyzer","ik_smart").endObject()
 					.startObject("imagePath").field("type","text").endObject()
 					.startObject("url").field("type", "text").endObject()
 					.startObject("urlMd5").field("type","text").endObject()

@@ -39,7 +39,9 @@ public class ESConstant {
 	
 	 public static String TITLE = "title";
 	    
-	 public static String KEY_WORDS = "keyWords";
+	 public static String KEY_WORDS = "key_words";
+	 
+	 public static String KEYWORDS = "keyWords";
 	 
 	 public static String URL = "url";
 	 

@@ -51,10 +51,11 @@ public class SearchSiteServiceImpl implements SearchService {
 			hits.forEach(hit->{
 				String title = hit.getSourceAsMap().get(ESConstant.TITLE).toString();
 				String url = hit.getSourceAsMap().get(ESConstant.URL).toString();
+				// 这里是为了防止前端按钮出不来的问题
 				if (StringUtils.endsWith(url, "/")) {
 					url = StringUtils.substringBeforeLast(url, "/");
 				}
-				String keywords = hit.getSourceAsMap().get(ESConstant.KEY_WORDS).toString();
+				String keywords = hit.getSourceAsMap().get(ESConstant.KEYWORDS).toString();
 				String imagePath = hit.getSourceAsMap().get(ESConstant.IMAGE_PATH).toString();
 
 				SiteResDto siteDto = new SiteResDto(title, url, imagePath, keywords);

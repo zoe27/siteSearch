@@ -96,8 +96,8 @@ public class ESSettings {
 					.startObject("analysis")
 					.startObject("analyzer")
 					.startObject("zh_analyzer")
-					//.field("tpye","custom").field("tokenizer", "ik_max_word")
-					.field("tpye","custom").field("tokenizer", "standard")
+					.field("tpye","custom").field("tokenizer", "ik_max_word")
+					//.field("tpye","custom").field("tokenizer", "standard")
 					.array("filte", "lowercase","asciifolding").array("char_filter", "html_strip")
 					.endObject()
 					
@@ -133,7 +133,7 @@ public class ESSettings {
 			
 			
 		}catch(Exception e) {
-			//logger.error("get settings erros", e);
+			logger.error("get settings erros", e);
 		}
 		return builder;
 	}
