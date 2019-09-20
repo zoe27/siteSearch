@@ -8,5 +8,6 @@ docker rmi $con
 docker images
 docker build -t $con .
 docker images
-docker run -d --name $con -p $port:$port1 $con
+#docker run -d --name $con -p $port:$port1 $con
+docker run -d --name $con -p $port:$port1 -v /home/site/dockerfile/sitePerfect/snapshot:/snapshot $con
 docker logs -f $con

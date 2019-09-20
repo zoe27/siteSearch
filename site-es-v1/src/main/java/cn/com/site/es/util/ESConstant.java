@@ -21,7 +21,7 @@ public class ESConstant {
 	
 	public enum ES_SITE_INFO{
 		TYPE("site"),
-		INDEX("perfectsite"),
+		INDEX("perfectsite_v1"),
 		NUMBER_OF_SHARDS("1"),
 		NUMBER_OF_REPLICAS("0");
 		

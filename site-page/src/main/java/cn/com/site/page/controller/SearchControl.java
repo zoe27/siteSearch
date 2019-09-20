@@ -51,6 +51,7 @@ public class SearchControl {
 	@RequestMapping("/target")
 	public void sendToDest(@RequestParam("url") String url, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		log.info("send to dest is : {}", url);
+		// url必须带上协议，才能成功跳转
 		response.sendRedirect(url);
 		// 下面代码仅做保留，提供第二中国跳转方式。
 		//model.addAttribute("url", url);

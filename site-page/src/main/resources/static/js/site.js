@@ -8,10 +8,13 @@ function appendResultToPage(div, data) {
 	div.html("");
     $(data).each(function (index, item) {
     	//for(var i = 0; i< 10; i++){
+    			// 网站缩略图
+    			var imgContent = "<p class='dev-text' style='height: 200px;text-align:center'><img src='/"+item.imageUrl+"' style='width: 100%;'></p>";
+    			
         		// 点击跳转的按钮
             var buttonDiv = $("<div class='layer-btn'><a href=/target?url="+item.url+"><p style='color: #af9595;'>立即体验</p></a></div>");
             // 网站描述的内容
-            var conetDiv = $("<div class='layer-text'><p class='dev-text'>"+item.siteDesc+"</p>");
+            var conetDiv = $("<div class='layer-text'><p class='dev-text'>"+item.siteDesc+"</p>" + imgContent +"</div>");
             // 网站的标题
             var titleDiv = $("<div class='layer-figure'><img src='/img/web.png'/></div><h2 class='dev-list'>"+item.title+"</h2>");
             // 放具体内容的div
