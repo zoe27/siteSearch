@@ -63,3 +63,13 @@ $('#index_search').click(function(){
 		window.location.href = '/result.html';
 	}
 });
+
+// 定义一个词云点击事件
+function wordClick(keyword){
+	localStorage.searchKey=keyword;
+	if(localStorage["searchKey"] == ""){
+		return;
+	}else{
+		window.location.href = '/result.html';
+	}
+}

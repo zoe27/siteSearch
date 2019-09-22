@@ -1,7 +1,7 @@
 body {background: #ffffff center 230px;}
 #div1 {position:relative; width:450px; height:450px; margin: 20px auto 0; }
-#div1 a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color: #0b85ff; font-weight:bold; text-decoration:none; padding: 3px 6px; }
- 
+#div1 a {position:absolute;top:0px;left:0px;color: #5cd842;font-weight: bolder;text-decoration: overline;padding: 3px 6px;font-family: serif;}
+
 #div1 .blue {color:blue;}
 #div1 .red {color:red;}
 #div1 .yellow {color:yellow;}

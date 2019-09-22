@@ -203,7 +203,7 @@ $(document).ready(function(){
         console.log("这里getjson");
         var items = [];
         $.each( data, function( key, val ) {
-            items.push( "<a href=www.baidu.com  style=font-size:"+val+"px>"+key+"</a>" );
+            items.push( "<a href='#' onclick=wordClick('"+key+"')  style=color:'#5cd842';font-size:"+val+"px>"+key+"</a>" );
         });
         $( "<div/>", {
             "id": "div1",
