@@ -45,6 +45,7 @@ public class SearchControl {
 								@RequestParam(name = "limit", defaultValue = "6") Integer limit) {
 		log.info("recive a requesr, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
 		List<SiteResDto> list = searchService.searchByQuery(query, begin, limit);
+		log.warn("query is {}, result size is {}", query, list.size());
 		return list;
 	}
 	

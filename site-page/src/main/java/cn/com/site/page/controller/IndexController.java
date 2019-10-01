@@ -10,16 +10,12 @@
  */
 package cn.com.site.page.controller;
 
-import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 
 import cn.com.site.es.esUtil.ESClient;
-import cn.com.site.es.util.ESConstant;
 
 @Controller
 public class IndexController {
@@ -29,9 +25,9 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public String toIndex() {
-		SearchResponse response = esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),"图片");
+		//SearchResponse response = esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),"图片");
 		//return JSONObject.toJSONString(response);
-		return "index";
+		return "v1/index";
 	}
 	
 	@RequestMapping("/result")
@@ -46,7 +42,7 @@ public class IndexController {
 	
 	@RequestMapping("/")
 	public String index() {
-		return "search";
+		return "v1/index";
 	}
 }
 

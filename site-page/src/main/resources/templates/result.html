@@ -1,47 +1,233 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" id="pc">
 <head>
-<meta charset="UTF-8"/>
-<title>result</title>
- <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
- <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{/css/my.css}" rel="stylesheet" type="text/css"
-	media="all" />
+<meta charset="UTF-8" />
+<meta name="description" content="专注精品工具网站搜索,提供优质的工具网站信息检索" />
+<meta name="keywords" content="精品网站,精品工具,优质工具,优质网站" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="generator" content="searx/0.14.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<title>精品站点</title>
+
+<link th:href="@{/css/v1/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/v1/logicodev.min.css}" rel="stylesheet"
+	type="text/css" />
 
 <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
 
+<!-- 	<link th:href="@{/css/v1/leaflet.min.css}" rel="stylesheet" type="text/css"/>
+ -->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="/js/html5shiv.min.js?staticVersion=1538189065"></script>
+      <script src="/js/respond.min.js?staticVersion=1538189065"></script>
+    <![endif]-->
+
+<link rel="shortcut icon" th:href="@{/img/earth4.png}" />
+
+
+<link title="精品工具搜索" type="application/opensearchdescription+xml"
+	rel="search" href="/opensearch.xml" />
+
 <script>
-		var _hmt = _hmt || [];
-		(function() {
-			var hm = document.createElement("script");
-			hm.src = "https://hm.baidu.com/hm.js?19915024b50cfe5f5f17b0f75257aff9";
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(hm, s);
-		})();
-	</script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "https://hm.baidu.com/hm.js?19915024b50cfe5f5f17b0f75257aff9";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+
+<script type="text/javascript">
+	searx = {};
+	searx.method = "GET";
+	searx.autocompleter = false;
+</script>
+<!-- <noscript>
+        <style type="text/css">
+            .tab-content>.active_if_nojs,
+            .active_if_nojs {
+                display: block !important;
+                visibility: visible !important;
+            }
+
+            .margin_top_if_nojs {
+                margin-top: 20px;
+            }
+
+            .hide_if_nojs {
+                display: none !important;
+                overflow: none !important;
+            }
+
+            .disabled_if_nojs {
+                pointer-events: none;
+                cursor: default;
+                text-decoration: line-through;
+            }
+        </style>
+    </noscript> -->
+<style>
+#ipt {
+	width: 100%;
+	height: 45px;
+	font-size: 18px;
+	box-shadow: 1px 1px 6px 0 rgba(119, 119, 119, .5);
+	border: 0;
+	border-radius: 25px !important;
+	padding-left: 20px;
+	padding-right: 120px;
+	box-sizing: border-box;
+}
+</style>
 </head>
 
 <body>
-<header th:replace="common/top_header_result :: header"></header>
-<div class="bg-white">
-	<div class="developer-toolbag-block">
-		<div class="AGrid-row  tool-package" id = "result_show">
-			
-			
-		</div>
-	</div>
-</div>
 
-<script type="text/javascript">
-	// 直接访问的页面
-	if(document.referrer == ""){
-		localStorage.searchKey="";
-	}
-	if(localStorage["searchKey"] != ""){
-		$("#ipt").val(localStorage["searchKey"]);
-		$('#su_search').click();
-	}
-</script>
+	<div class="main">
+		<div class="search-page">
+			<div class="search-container">
+				<form method="GET" class="search_form" id="search_form"
+					role="search">
+					<div class="clearfix" style="padding-bottom: 15px;">
+						<div class="logo-container">
+							<div class="col-md-offset-1">
+								<a href="/" class="link"> <img src="/img/earth4.png"
+									alt="logo" />
+								</a>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-8">
+							<div class="input-group search-margin search-container nofull">
+								<input type="search" name="ipt" class="form-control" id="ipt"
+									placeholder="搜索..." autocomplete="off" value="图片" /> <span
+									class="input-group-btn"> <input type="button"
+									class="btn input-lg" id="su_search" value="☯"></input>
+								</span>
+							</div>
+						</div>
+
+						<div class="clearfix" style="position: relative;">
+							<!-- <div class="col-md-offset-1">
+								<a href="/" class="link"> <img src="/img/logo5.png"
+									alt="logo" />
+								</a>
+							</div> -->
+							<!-- <h2 class="slogan2"><img src="/img/logo5.png"/></h2> -->
+						</div>
+					</div>
+
+					<div class="cat" id="cat" style="display: block;">
+						<div id="categories">
+							<input class="hidden" type="checkbox" id="checkbox_general"
+								name="category_general" checked="checked" /> <label
+								for="checkbox_general">网页</label>
+
+						</div>
+					</div>
+					<div style="display: none"></div>
+					<input type="hidden" name="pageno" value="1" />
+				</form>
+			</div>
+		</div>
+		<div class="result-container">
+			<div class="col-sm-8" id="main_results">
+				<h1 class="sr-only">搜索结果</h1>
+
+				<div class="aresult-header">
+					<!-- <div class="aresult-count">34,659,245 条结果</div> -->
+				</div>
+
+				<!-- 放置搜索结果 -->
+				<div class="default-container"></div>
+
+
+				<div class="clearfix"></div>
+
+				<div id="pagination">
+					<!-- <div class="pull-left">
+						<form method="GET" action="/" class="pull-left">
+
+							<input type="hidden" name="pageno" value="0" />
+							<button type="submit" class="btn" disabled="">
+								<i class="fa fa-backward" aria-hidden="true"></i> 上一页
+							</button>
+						</form>
+					</div>
+					<div class="pull-right">
+						<form method="GET" action="/" class="pull-left">
+							<input type="hidden" name="pageno" value="2" />
+							<button type="submit" class="btn">
+								下一页
+								<span class="glyphicon glyphicon-forward"></span>
+							</button>
+						</form>
+					</div> -->
+				</div>
+				<!-- /#pagination -->
+				<div class="clearfix"></div>
+
+
+			</div>
+			<!-- /#main_results -->
+
+			<div class="col-sm-4" id="sidebar_results">
+
+
+
+				<div class="entro-panel panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">今日热点</h4>
+					</div>
+					<div class="panel-body">
+						<p>功能开发中，敬请期待</p>
+					</div>
+				</div>
+
+				<div class="entro-panel panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">最近更新</h4>
+					</div>
+					<div class="panel-body">
+						<p>功能开发中，敬请期待</p>
+					</div>
+				</div>
+			</div>
+			<!-- /#sidebar_results -->
+		</div>
+
+	</div>
+
+
+
+
+	<script th:src="@{/js/site.js}" type="text/javascript"></script>
+	<script type="text/javascript">
+		// 直接访问的页面
+		if (document.referrer == "") {
+			localStorage.searchKey = "";
+		}
+		if (localStorage["searchKey"] != "") {
+			$("#ipt").val(localStorage["searchKey"]);
+			$('#su_search').click();
+		}
+		
+		document.onkeydown = function(e) {
+			// 兼容FF和IE和Opera  
+			var theEvent = e || window.event;
+			var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+			if (code == 13) {
+				$('#su_search').click();//具体处理函数  
+				return false;
+			}
+			return true;
+		}
+	</script>
 </body>
+
+
+
 </html>
