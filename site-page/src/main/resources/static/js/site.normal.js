@@ -45,7 +45,7 @@ function appendResultToPageV1(div, data){
 	div.html("");
     $(data).each(function (index, item) {
     			// 放具体内容的div
-    			var subDiv = $('<div id="singleResult" style="width:700px"></div>');
+    			var subDiv = $('<div id="singleResult"></div>');
     			
     			// 放置具体内容的页面
     			var contentDiv = $('<div class="result result-default"></div>');

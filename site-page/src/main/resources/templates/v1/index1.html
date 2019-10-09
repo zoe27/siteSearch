@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>精品站点-搜索</title>
+<!-- <link th:href="@{/css/v1/index.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/v1/index_pc.css}" rel="stylesheet" type="text/css" /> -->
+
+<link th:href="@{/css/v1/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/v1/logicodev.css}" rel="stylesheet"
+	type="text/css" />
+
+<link rel="shortcut icon" th:href="@{/img/earth4.png}" />
+
+<script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "https://hm.baidu.com/hm.js?19915024b50cfe5f5f17b0f75257aff9";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+
+</head>
+<body>
+	<div class="search">
+		<div class="logo">
+			<img src="img/logo5.png" alt="" />
+		</div>
+		<div class="search_form">
+			<form method="get" name="q">
+				<input class="text" id="ipt" autocomplete="off" type="text" name="q"
+					placeholder="✎...  一花一世界，一叶一菩提～" /> <input class="button"
+					type="button" id="index_search" value="☯" />
+			</form>
+		</div>
+	</div>
+	<div class="nav">
+		<div class="box" style="display: none">
+			<img src="" alt="" />
+			<p>百度</p>
+			<a target="_blank" href="http://www.baidu.com/"></a>
+		</div>
+	</div>
+	<div class="bottom" style="display: none">
+		<p>
+			- <img src="" alt="寻觅你想要的" width="30" height="30" /> -
+		</p>
+		<a href="/"></a>
+	</div>
+</body>
+
+<script th:src="@{/js/site.js}" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+document.onkeydown = function(e) {
+	// 兼容FF和IE和Opera  
+	var theEvent = e || window.event;
+	var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+	if (code == 13) {
+		$('#index_search').click();//具体处理函数  
+		return false;
+	}
+	return true;
+}
+</script>
+</html>
