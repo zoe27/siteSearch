@@ -25,6 +25,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -292,7 +293,7 @@ public class ESClient {
 					.should(QueryBuilders.termQuery(ESConstant.KEY_WORDS, query))
 					.should(QueryBuilders.matchQuery(ESConstant.KEY_WORDS, query).boost(0.5f));
 			// 字段排序，后续补上
-			// requestBuilder.addSort(field, order)
+			requestBuilder.addSort("_score", SortOrder.DESC);
 			requestBuilder.setFrom(0).setSize(20);
 			requestBuilder.setQuery(queryBuilder);			
 			logger.info(queryBuilder);

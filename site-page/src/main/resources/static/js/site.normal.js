@@ -50,7 +50,7 @@ function appendResultToPageV1(div, data){
     			// 放置具体内容的页面
     			var contentDiv = $('<div class="result result-default"></div>');
     			// 标题加超链接
-    			var ahref = $('<h4 class="result_header"><a href="/target?url='+item.url+'"target="_blank" rel="noopener noreferrer">'+item.title+'——<span class="highlight"></span></a></h4>');
+    			var ahref = $('<h4 class="result_header"><a href="/target?url='+item.url+'"target="_blank" rel="noopener noreferrer">'+item.title+'<span class="highlight"></span></a></h4>');
     			var detailDiv = $('<p class="result-content">'+item.siteDesc+'<span class="highlight"></span></p>');
     			var targetDiv = $('<div class="external-link"><span class="url">'+item.url+'</span><span class="proxy"> <a href="'+item.url+'"class="text-info" target="_blank" rel="noopener noreferrer">前往访问</a><!--<div class="tips"></div></span></div>-->');
             // 加上内容

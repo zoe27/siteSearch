@@ -57,7 +57,11 @@ public class SearchSiteServiceImpl implements SearchService {
 				}
 				String keywords = hit.getSourceAsMap().get(ESConstant.KEYWORDS).toString();
 				String imagePath = hit.getSourceAsMap().get(ESConstant.IMAGE_PATH).toString();
+				String desc = hit.getSourceAsMap().get(ESConstant.DESC).toString();
 
+				if(StringUtils.isNotBlank(desc)) {
+					keywords = desc;
+				}
 				SiteResDto siteDto = new SiteResDto(title, url, imagePath, keywords);
 				list.add(siteDto);
 			});
