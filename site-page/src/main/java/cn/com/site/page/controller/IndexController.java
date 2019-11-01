@@ -48,7 +48,7 @@ public class IndexController {
 		if (isMobile(request)) {
 			return "m/result";
 		}else {
-			return "result";
+			return "v1/result";
 		}
 	}
 

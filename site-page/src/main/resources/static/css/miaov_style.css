@@ -1,11 +1,11 @@
 body {background: #ffffff center 230px;}
-#div1 {position:relative; width:450px; height:450px; margin: 20px auto 0; }
-#div1 a {position:absolute;top:0px;left:0px;color: #5cd842;font-weight: bolder;text-decoration: overline;padding: 3px 6px;font-family: serif;}
+#div1 {position:relative; width:250px; height:250px; }
+#div1 a {position:absolute;top:0px;left:0px;color: #5cd842;font-weight: bolder;padding: 3px 6px;font-family: serif;}
 
 #div1 .blue {color:blue;}
 #div1 .red {color:red;}
 #div1 .yellow {color:yellow;}
  
-p { font: 16px Microsoft YaHei; text-align: center; color: #ba0c0c; }
-p a { font-size: 14px; color: #ba0c0c; }
+/*p { font: 16px Microsoft YaHei; text-align: center; color: #ba0c0c; }
+p a { font-size: 14px; color: #ba0c0c; }*/
 p a:hover { color: red; }

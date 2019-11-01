@@ -44,6 +44,7 @@ public class SearchSiteServiceImpl implements SearchService {
 		// TODO Auto-generated method stub
 		SearchResponse response = esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),query);
 		SearchHits hits = null;
+		long time = System.currentTimeMillis();
 		if(response != null) {
 			hits = response.getHits();
 		}
@@ -66,6 +67,7 @@ public class SearchSiteServiceImpl implements SearchService {
 				list.add(siteDto);
 			});
 		}
+		log.info("get data from es cost time is {}, query is {}", (System.currentTimeMillis() - time), query);
 		return list;
 	}
 

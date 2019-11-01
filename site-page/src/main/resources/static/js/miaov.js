@@ -1,4 +1,4 @@
-var radius = 180;//3D 球的半径
+var radius = 100;//3D 球的半径
 var dtr = Math.PI/180;
 var d=600;
  
@@ -7,8 +7,8 @@ var active = true;
 var lasta = 1;
 var lastb = 1;
 var distr = true;
-var tspeed=20;//文字移动速度
-var size=250;
+var tspeed=5;//文字移动速度
+var size=150;
  
 var mouseX=10;
 var mouseY=10;
@@ -205,16 +205,17 @@ $(document).ready(function(){
         $.each( data, function( key, val ) {
             items.push( "<a href='#' onclick=wordClick('"+key+"')  style=color:'#5cd842';font-size:"+val+"px>"+key+"</a>" );
         });
-        $( "<div/>", {
-            "id": "div1",
-            style:"border:solid 2px white",
-            ALIGN: "center",
-            width: "550px",
-            html: items.join( "" )
-        }).appendTo( "body" );
+//        $( "<div/>", {
+//            "id": "div1",
+//            style:"border:solid 2px white",
+//            ALIGN: "center",
+//            width: "550px",
+//            html: items.join( "" )
+//        }).appendTo( "body" );
         //console.log($('div'));
  
         oDiv=document.getElementById('div1');
+        oDiv.innerHTML=items.join( "" );
         aA=oDiv.getElementsByTagName('a');
  
         for(i=0;i<aA.length;i++)

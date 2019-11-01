@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">
+<url>
+ <loc>http://ruoyixi.top</loc>
+ <mobile:mobile type="pc,mobile" />
+ <priority>0.5</priority>
+ <lastmod>2019-10-15</lastmod>
+ <changefreq>weekly</changefreq>
+</url>
+<url>
+ <loc>http://ruoyixi.top/</loc>
+ <mobile:mobile type="pc,mobile" />
+ <priority>0.5</priority>
+ <lastmod>2019-10-15</lastmod>
+ <changefreq>weekly</changefreq>
+</url>
+</urlset>
