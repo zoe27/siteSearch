@@ -46,7 +46,7 @@ public class ESClient {
 
 	@Autowired
 	private ESSettings settings;
-	
+
 	@Autowired
 	private EsConfInfo esConfInfo;
 
@@ -86,12 +86,12 @@ public class ESClient {
 	 */
 	@PostConstruct
 	public TransportClient initClient() {
-		String nodes = esConfInfo.getIp();//ESConstant.NODE_IP;
-		int port = esConfInfo.getPort();//ESConstant.PORT;
+		String nodes = esConfInfo.getIp();// ESConstant.NODE_IP;
+		int port = esConfInfo.getPort();// ESConstant.PORT;
 		// Splitter.maps
 
 		String clusterName = "elasticsearch";
-		Settings settings = Settings.builder().put("cluster.name", clusterName)//.put("clinet.transport.sniff", true)
+		Settings settings = Settings.builder().put("cluster.name", clusterName)// .put("clinet.transport.sniff", true)
 				.build();
 		TransportClient client = new PreBuiltTransportClient(Settings.EMPTY);
 		try {
@@ -295,7 +295,7 @@ public class ESClient {
 			// 字段排序，后续补上
 			requestBuilder.addSort("_score", SortOrder.DESC);
 			requestBuilder.setFrom(0).setSize(20);
-			requestBuilder.setQuery(queryBuilder);			
+			requestBuilder.setQuery(queryBuilder);
 			logger.info(queryBuilder);
 			logger.info(requestBuilder);
 
@@ -312,6 +312,45 @@ public class ESClient {
 		}
 
 		return response;
+	}
 
+	/**
+	 * 获取最近更新的数据
+	 * 
+	 * @param strs
+	 * @return
+	 */
+	public SearchResponse getRecentData(String... strs) {
+		SearchResponse response = null;
+		try {
+			if (null == strs || strs.length < 2) {
+				logger.error("params is not enough");
+				return null;
+			}
+			String index = "";
+			String type = "";
+			index = strs[0];
+			type = strs[1];
+
+			SearchRequestBuilder requestBuilder = client.prepareSearch(index).setTypes(type);
+			BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+			// 字段排序，后续补上
+			requestBuilder.addSort(ESConstant.DATE, SortOrder.DESC);
+			requestBuilder.setFrom(0).setSize(20);
+			requestBuilder.setQuery(queryBuilder);
+			// logger.info(queryBuilder);
+			logger.info(requestBuilder);
+
+			// 设置 _source 要返回的字段
+			// .setFetchSource(Constants.fetchFieldsTSPD, null);
+			response = requestBuilder.get();
+			if (null != response) {
+				response.getHits();
+			}
+		} catch (Exception e) {
+			logger.error("", e);
+		}
+
+		return response;
 	}
 }

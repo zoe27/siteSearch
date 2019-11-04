@@ -23,40 +23,47 @@ import cn.com.site.page.service.SearchService;
 /**
  * @Description: TODO
  * @author 作者 zhoubin
- * @version 创建时间：2019年8月4日 上午10:15:39
- * SearchControl.java
+ * @version 创建时间：2019年8月4日 上午10:15:39 SearchControl.java
  * @since JDK 1.8
- * @version V1.0
- * Copyright (c) 2019, zoe27@126.com All Rights Reserved.
+ * @version V1.0 Copyright (c) 2019, zoe27@126.com All Rights Reserved.
  * 
  */
 @Controller
 public class SearchControl {
-	
+
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private SearchService searchService;
-	
+
 	@RequestMapping("/search")
 	@ResponseBody
 	public List<SiteResDto> searchByQuery(@RequestParam("query") String query,
-								@RequestParam(name = "begin", defaultValue = "0") Integer begin,
-								@RequestParam(name = "limit", defaultValue = "6") Integer limit) {
+			@RequestParam(name = "begin", defaultValue = "0") Integer begin,
+			@RequestParam(name = "limit", defaultValue = "6") Integer limit) {
 		log.info("recive a requesr, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
 		List<SiteResDto> list = searchService.searchByQuery(query, begin, limit);
 		log.warn("query is {}, result size is {}", query, list.size());
 		return list;
 	}
-	
+
+	@RequestMapping("/recent")
+	@ResponseBody
+	public List<SiteResDto> searchRecent() {
+		log.info("get recent data");
+		List<SiteResDto> list = searchService.searchRecent();
+		log.warn("recent is {}, result size is {}", list.size());
+		return list;
+	}
+
 	@RequestMapping("/target")
-	public void sendToDest(@RequestParam("url") String url, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public void sendToDest(@RequestParam("url") String url, HttpServletRequest request, HttpServletResponse response,
+			Model model) throws IOException {
 		log.info("send to dest is : {}", url);
 		// url必须带上协议，才能成功跳转
 		response.sendRedirect(url);
 		// 下面代码仅做保留，提供第二中国跳转方式。
-		//model.addAttribute("url", url);
-		//return "/common/redirect";
+		// model.addAttribute("url", url);
+		// return "/common/redirect";
 	}
 }
-

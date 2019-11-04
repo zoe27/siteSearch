@@ -113,3 +113,19 @@ function wordClick(keyword){
 		window.location.href = '/result.html';
 	}
 }
+
+// 最近更新的数据
+function recentData(){
+	$.get("/recent" ,function (data){
+		var div = $("#recentDate");
+		div.html("");
+		var titleDiv = '<div class="panel-heading"><h4 class="panel-title">最近更新</h4></div>';
+		div.append(titleDiv);
+	    $(data).each(function (index, item) {
+	    		// 放具体内容的div
+	    		var subDiv = $('<div class="panel-body" style="padding:0px"><p><a href="/target?url='+item.url+'">'+item.title+'</a></p></div>');
+	    		// 最后添加到页面中
+	        div.append(subDiv);
+	    });
+	});
+}

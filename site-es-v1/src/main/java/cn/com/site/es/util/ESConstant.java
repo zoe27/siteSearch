@@ -21,7 +21,7 @@ public class ESConstant {
 	
 	public enum ES_SITE_INFO{
 		TYPE("site"),
-		INDEX("perfectsite_v2"),
+		INDEX("perfectsite_v3"),
 		NUMBER_OF_SHARDS("1"),
 		NUMBER_OF_REPLICAS("0");
 		
@@ -48,5 +48,11 @@ public class ESConstant {
 	 public static String IMAGE_PATH = "imagePath";
 	 
 	 public static String DESC = "desc";
+	 
+	 public static String DATE = "date";
+	 
+	 public static String UP = "upCnt";
+	 
+	 public static String DOWN = "downCnt";
 
 }

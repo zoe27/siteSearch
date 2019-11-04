@@ -1501,7 +1501,7 @@ input[type=checkbox]:not(:checked)+.label_hide_if_not_checked,input[type=checkbo
 }
 
 .entro-panel .panel-body {
-    font-size: 13px;
+    /*font-size: 13px;*/
     color: #737373
 }
 

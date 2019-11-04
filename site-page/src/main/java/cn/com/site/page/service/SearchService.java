@@ -23,5 +23,11 @@ public interface SearchService {
 	 * @return
 	 */
 	List<SiteResDto> searchByQuery(String query, int begin, int limit);
+	
+	/**
+	 * 获取最新数据
+	 * @return
+	 */
+	List<SiteResDto> searchRecent();
 }
 
