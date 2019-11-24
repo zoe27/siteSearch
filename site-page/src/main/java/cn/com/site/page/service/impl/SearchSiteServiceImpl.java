@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,10 @@ public class SearchSiteServiceImpl implements SearchService {
 
 				if(StringUtils.isNotBlank(desc)) {
 					keywords = desc;
+				}
+				// 高亮命中
+				if(null != hit.getHighlightFields().get(ESConstant.TITLE)) {
+					title = hit.getHighlightFields().get(ESConstant.TITLE).getFragments()[0].toString();
 				}
 				SiteResDto siteDto = new SiteResDto(title, url, imagePath, keywords);
 				list.add(siteDto);

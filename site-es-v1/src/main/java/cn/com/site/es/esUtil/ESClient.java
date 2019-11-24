@@ -25,6 +25,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,6 +287,9 @@ public class ESClient {
 				query = strs[2];
 			}
 
+			// 增加高亮
+	        HighlightBuilder highlightBuilder = new HighlightBuilder().field("title").fragmentSize(200).preTags("<em style='font-style:normal;color:#c00;'>").postTags("</em>");
+			
 			SearchRequestBuilder requestBuilder = client.prepareSearch(index).setTypes(type);
 			BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
 			queryBuilder.should(QueryBuilders.matchQuery(ESConstant.TITLE, query).boost(1.0f))
@@ -294,7 +298,7 @@ public class ESClient {
 					.should(QueryBuilders.matchQuery(ESConstant.KEY_WORDS, query).boost(0.5f));
 			// 字段排序，后续补上
 			requestBuilder.addSort("_score", SortOrder.DESC);
-			requestBuilder.setFrom(0).setSize(20);
+			requestBuilder.setFrom(0).setSize(20).highlighter(highlightBuilder);
 			requestBuilder.setQuery(queryBuilder);
 			logger.info(queryBuilder);
 			logger.info(requestBuilder);
