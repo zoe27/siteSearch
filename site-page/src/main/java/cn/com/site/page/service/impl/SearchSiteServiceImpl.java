@@ -1,6 +1,7 @@
 package cn.com.site.page.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import cn.com.site.es.esUtil.ESClient;
 import cn.com.site.es.util.ESConstant;
@@ -43,6 +45,7 @@ public class SearchSiteServiceImpl implements SearchService {
 	@Override
 	public List<SiteResDto> searchByQuery(String query, int begin, int limit) {
 		List<SiteResDto> list = Lists.newArrayList();
+		Set<String> titleSet = Sets.newHashSet();
 		// TODO Auto-generated method stub
 		SearchResponse response = esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),query);
 		SearchHits hits = null;
@@ -54,6 +57,10 @@ public class SearchSiteServiceImpl implements SearchService {
 			hits.forEach(hit->{
 				String title = hit.getSourceAsMap().get(ESConstant.TITLE).toString();
 				String url = hit.getSourceAsMap().get(ESConstant.URL).toString();
+				// 去除重复
+				if (!titleSet.add(title)) {
+					return;
+				}
 				// 这里是为了防止前端按钮出不来的问题
 				if (StringUtils.endsWith(url, "/")) {
 					url = StringUtils.substringBeforeLast(url, "/");
