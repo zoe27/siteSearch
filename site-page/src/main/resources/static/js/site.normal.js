@@ -43,7 +43,20 @@ function appendResultToPage(div, data) {
  */
 function appendResultToPageV1(div, data){
 	div.html("");
-    $(data).each(function (index, item) {
+	if(data.t.length < data.size){
+		$("#searchNext").attr('disabled',"true");//添加disabled属性
+	}else{
+		$("#searchNext").removeAttr("disabled"); //移除disabled属性
+		$("#searchNext").val(data.begin+1);
+	}
+	if(data.begin == 0){
+		$("#searchPre").attr('disabled',"true");//添加disabled属性
+	}else{
+		$("#searchPre").removeAttr("disabled"); //移除disabled属性
+		$("#searchPre").val(data.begin-1);
+	}
+	
+    $(data.t).each(function (index, item) {
     			// 放具体内容的div
     			var subDiv = $('<div id="singleResult"></div>');
     			
@@ -90,6 +103,23 @@ $('#su_search').click(function(){
 });
 
 /**
+ * 结果页上一页，下一页查询按钮事件
+ * @returns
+ */
+function pageClick(e){
+	//var div = $("#result_show");
+	var div = $(".default-container");
+	localStorage.searchKey=$("#ipt").val();
+	var searchKey = localStorage["searchKey"];
+	if(searchKey == ''){
+		return;
+	}
+	$.get("/search?query="+searchKey+"&begin="+e.value ,function (data){
+		appendResultToPageV1(div, data);
+	});
+};
+
+/**
  * 首页的查询按钮事件
  * 做页面跳转
  * @returns
@@ -129,3 +159,5 @@ function recentData(){
 	    });
 	});
 }
+
+

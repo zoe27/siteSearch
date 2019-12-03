@@ -2,6 +2,7 @@ package cn.com.site.page.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.common.collect.Maps;
+
+import cn.com.site.page.dto.PageBean;
 import cn.com.site.page.dto.SiteResDto;
 import cn.com.site.page.service.SearchService;
 
@@ -38,13 +42,21 @@ public class SearchControl {
 
 	@RequestMapping("/search")
 	@ResponseBody
-	public List<SiteResDto> searchByQuery(@RequestParam("query") String query,
+	public PageBean<List<SiteResDto>> searchByQuery(@RequestParam("query") String query,
 			@RequestParam(name = "begin", defaultValue = "0") Integer begin,
-			@RequestParam(name = "limit", defaultValue = "6") Integer limit) {
-		log.info("recive a requesr, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
-		List<SiteResDto> list = searchService.searchByQuery(query, begin, limit);
+			@RequestParam(name = "limit", defaultValue = "15") Integer limit) {
+		PageBean<List<SiteResDto>> pageBean = new PageBean<>();
+		int from = begin * pageBean.getSize();
+		log.info("recive a requesr, params is : query = {}, begin = {}, limit = {}, from = {}", query, begin, limit, from);
+		List<SiteResDto> list = searchService.searchByQuery(query, from, limit);
 		log.warn("query is {}, result size is {}", query, list.size());
-		return list;
+		
+		pageBean.setBegin(begin);
+		if (list.size() > 10) {
+			list = list.subList(0, 10);
+		}
+		pageBean.setT(list);
+		return pageBean;
 	}
 
 	@RequestMapping("/recent")

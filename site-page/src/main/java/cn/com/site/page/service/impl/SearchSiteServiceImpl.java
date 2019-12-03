@@ -7,7 +7,6 @@ import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,11 @@ public class SearchSiteServiceImpl implements SearchService {
 	 * @see cn.com.site.page.service.SearchService#searchByQuery(java.lang.String, int, int)
 	 */
 	@Override
-	public List<SiteResDto> searchByQuery(String query, int begin, int limit) {
+	public List<SiteResDto> searchByQuery(String query, int begin, int size) {
 		List<SiteResDto> list = Lists.newArrayList();
 		Set<String> titleSet = Sets.newHashSet();
 		// TODO Auto-generated method stub
-		SearchResponse response = esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),query);
+		SearchResponse response = esclient.getData(begin, size, ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),query);
 		SearchHits hits = null;
 		long time = System.currentTimeMillis();
 		if(response != null) {

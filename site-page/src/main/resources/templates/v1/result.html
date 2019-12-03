@@ -173,24 +173,25 @@
 				<div class="clearfix"></div>
 
 				<div id="pagination">
-					<!-- <div class="pull-left">
-						<form method="GET" action="/" class="pull-left">
+					 <div class="pull-left">
+						<form class="pull-left" onclick="return false;">
 
 							<input type="hidden" name="pageno" value="0" />
-							<button type="submit" class="btn" disabled="">
+							<button  class="btn" value="" id="searchPre" onclick="pageClick(this)">
+								<img src="https://img.icons8.com/small/16/000000/double-left.png"/>
 								<i class="fa fa-backward" aria-hidden="true"></i> 上一页
 							</button>
 						</form>
 					</div>
 					<div class="pull-right">
-						<form method="GET" action="/" class="pull-left">
+						<form class="pull-left" onclick="return false;">
 							<input type="hidden" name="pageno" value="2" />
-							<button type="submit" class="btn">
+							<button class="btn" value="" id="searchNext" onclick="pageClick(this)" >
 								下一页
-								<span class="glyphicon glyphicon-forward"></span>
+								<img src="https://img.icons8.com/small/16/000000/double-right.png"/>
 							</button>
 						</form>
-					</div> -->
+					</div> 
 				</div>
 				<!-- /#pagination -->
 				<div class="clearfix"></div>

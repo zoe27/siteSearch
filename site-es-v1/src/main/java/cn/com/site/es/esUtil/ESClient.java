@@ -2,14 +2,11 @@ package cn.com.site.es.esUtil;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.queryparser.xml.builders.BooleanQueryBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
@@ -271,7 +268,7 @@ public class ESClient {
 	 * @param strs
 	 * @return
 	 */
-	public SearchResponse getData(String... strs) {
+	public SearchResponse getData(int begin, int size, String... strs) {
 		SearchResponse response = null;
 		try {
 			if (null == strs || strs.length < 3) {
@@ -298,9 +295,9 @@ public class ESClient {
 					.should(QueryBuilders.matchQuery(ESConstant.KEY_WORDS, query).boost(0.5f));
 			// 字段排序，后续补上
 			requestBuilder.addSort("_score", SortOrder.DESC);
-			requestBuilder.setFrom(0).setSize(20).highlighter(highlightBuilder);
+			requestBuilder.setFrom(begin).setSize(size).highlighter(highlightBuilder);
 			requestBuilder.setQuery(queryBuilder);
-			logger.info(queryBuilder);
+			//logger.info(queryBuilder);
 			logger.info(requestBuilder);
 
 			// 排除的字段，以及保留的字段
