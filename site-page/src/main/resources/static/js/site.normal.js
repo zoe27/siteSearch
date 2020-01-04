@@ -43,6 +43,14 @@ function appendResultToPage(div, data) {
  */
 function appendResultToPageV1(div, data){
 	div.html("");
+
+	//补充无结果展示
+	if (data.t.length == 0){
+		var imgContent = '<div style="text-align: center;"><img src="/img/nores.png" style="width: 60%;"></img></div>';
+		div.append(imgContent);
+		return;
+	}
+
 	if(data.t.length < data.size){
 		$("#searchNext").attr('disabled',"true");//添加disabled属性
 	}else{
@@ -66,7 +74,7 @@ function appendResultToPageV1(div, data){
     			var ahref = $('<h4 class="result_header"><a href="/target?url='+item.url+'"target="_blank" rel="noopener noreferrer">'+item.title+'<span class="highlight"></span></a></h4>');
     			var detailDiv = $('<p class="result-content">'+item.siteDesc+'<span class="highlight"></span></p>');
     			var targetDiv = $('<div class="external-link"><span class="url">'+item.url+'</span><span class="proxy"> <a href="'+item.url+'"class="text-info" target="_blank" rel="noopener noreferrer">前往访问</a><!--<div class="tips"></div></span></div>-->');
-            // 加上内容
+            	// 加上内容
     			contentDiv.append(ahref);
     			contentDiv.append(detailDiv);
     			contentDiv.append(targetDiv);
