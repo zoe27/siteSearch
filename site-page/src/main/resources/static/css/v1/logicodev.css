@@ -1268,7 +1268,7 @@ input[type=checkbox]:not(:checked)+.label_hide_if_not_checked,input[type=checkbo
 
 #search_form .search-container {
     position: relative;
-    width: 640px;
+    max-width: 640px;
     margin-left: auto;
     margin-right: auto
 }
@@ -2328,4 +2328,38 @@ pre,code {
     line-height: 48px;
     cursor: pointer;
     border-radius: 4px!important
+}
+
+.slogan {
+    position: relative;
+    top: -21px;
+    color: #9b9b9b;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.hot {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 524px;
+}
+
+.hot a {
+    color: #d87575;
+}
+
+.hot a:hover {
+    color: #177CB0;
+}
+.footer {
+    line-height: 40px;
+    color: #999;
+    background-color: #fafafa;
+}
+.footer a {
+    color: #999;
 }

@@ -1,112 +1,128 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html>
+
 <head lang="en">
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<meta name="baidu-site-verification" content="ZpIqmkCjUR" />
-<title>精品站点</title>
-<!-- <link th:href="@{/css/v1/index.css}" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="baidu-site-verification" content="ZpIqmkCjUR" />
+    <title>精品站点</title>
+    <!-- <link th:href="@{/css/v1/index.css}" rel="stylesheet" type="text/css" />
 <link th:href="@{/css/v1/index_pc.css}" rel="stylesheet" type="text/css" /> -->
-<meta name="Keywords" content="冷门站点，精品站点，精品工具，工具，网站推荐，小众网站，有趣网站，优质网站" />
-<meta name="Description" content="汇聚众多的冷门以及小众但有价值的网站，其中更多的是精品网站，值得给大家推荐。内容涵盖了各类工具类，如垂直资源搜索引擎，图片视频处理工具，各种素材精品网站" />
+    <meta name="Keywords" content="冷门站点，精品站点，精品工具，工具，网站推荐，小众网站，有趣网站，优质网站" />
+    <meta name="Description" content="汇聚众多的冷门以及小众但有价值的网站，其中更多的是精品网站，值得给大家推荐。内容涵盖了各类工具类，如垂直资源搜索引擎，图片视频处理工具，各种素材精品网站" />
 
-<link th:href="@{/css/v1/bootstrap.min.css}" rel="stylesheet"
-	type="text/css" />
-<link th:href="@{/css/v1/logicodev.css}" rel="stylesheet"
-	type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/v1/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/v1/logicodev.css" />
 
-<link rel="shortcut icon" th:href="@{/img/earth4.png}" />
+    <link rel="shortcut icon" href="img/earth4.png" />
 
-<script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 
 
-<style>
-#ipt {
-	width: 100%;
-	height: 45px;
-	font-size: 18px;
-	box-shadow: 1px 1px 6px 0 rgba(119, 119, 119, .5);
-	border: 0;
-	border-radius: 25px !important;
-	padding-left: 20px;
-	padding-right: 120px;
-	box-sizing: border-box;
-}
-</style>
+    <style>
+        #ipt {
+            width: 100%;
+            height: 45px;
+            font-size: 18px;
+            box-shadow: 1px 1px 6px 0 rgba(119, 119, 119, .5);
+            border: 0;
+            border-radius: 25px !important;
+            padding-left: 20px;
+            padding-right: 120px;
+            box-sizing: border-box;
+        }
 
-<style>
-.col-sm-12, .col-md-12 {
-	position: static;
-}
-</style>
+    </style>
 
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "https://hm.baidu.com/hm.js?19915024b50cfe5f5f17b0f75257aff9";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
+    <style>
+        .col-sm-12,
+        .col-md-12 {
+            position: static;
+        }
+    </style>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?19915024b50cfe5f5f17b0f75257aff9";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 
 </head>
 
 
 <body>
-	<div class="searx-navbar"></div>
-	<div class="main">
+    <div class="searx-navbar"></div>
+    <div class="main">
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="text-center col-sm-12 col-md-12">
-					<h1 id="main-logo" class="text-hide center-block">
-						<img class="center-block img-responsive" src="img/logo5.png"
-							alt="searx logo" />
-					</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="text-center col-sm-12 col-md-12">
-
-					<form method="GET" id="search_form" role="search">
-						<div class="input-group search-container full">
-							<input type="search" name="q"
-								class="form-control input-lg autofocus" id="ipt"
-								placeholder="✎...  一花一世界，一叶一菩提～"  autocomplete="off" value="" /> <span
-								class="input-group-btn">
-								<button type="button" class="btn" id="index_search" value="☯"></button>
-							</span>
-						</div>
-						<div class="slogan col-md-6 col-md-offset-3">
-							打造 <a href="/" class="b">冷门、精品工具站点</a> 搜索引擎
-						</div>
-					</form>
-					<!-- / #search_form_full -->
-				</div>
-			</div>
-		</div>
-
-	</div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="text-center col-sm-12 col-md-12 col-xs-12">
+                    <h1 id="main-logo" class="text-hide center-block">
+                        <img class="center-block img-responsive" src="img/logo5.png" alt="searx logo" />
+                    </h1>
+                    <div class="slogan">
+                        打造 <a href="/" class="b">冷门、精品工具站点</a> 搜索引擎
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center col-sm-12 col-md-12 col-xs-12">
+                    <form method="GET" id="search_form" role="search">
+                        <div class="search-container full">
+                            <input type="search" name="q" class="form-control input-lg autofocus" id="ipt"
+                                placeholder="✎...  一花一世界，一叶一菩提～" autocomplete="off" value="" /> <span
+                                class="input-group-btn">
+                                <button type="button" class="btn" id="index_search" value="☯"></button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- / #search_form_full -->
+                </div>
+                <div class="col-sm-12 col-md-12 col-xs-12">
+                    <div class="hot center-block">
+                        热门: <a href="/target?url=http://www.ocrmaker.com/">免费在线文字提取</a> <a href="/target?url=https://www.diydoutu.com/">DIY斗图</a> 
+                        <a href="/target?url=https://docsmall.com/">图片压缩</a>
+                        <a href="/target?url=https://www.ysuzy.com/">盐酥鸡影视</a>
+                        <a href="/target?url=http://www2.soopat.com/">专利搜索</a>
+                        <a href="/target?url=https://tower.im/">tower协作平台</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="s-bottom-layer-right hide-card">
+                <span class="lh">©CopyRight&nbsp;2020&nbsp;</span><span class="lh">千寻</span>
+                <a href="/">
+                    <span class="lh s-bottom-recordcode">freelso.com</span>
+                </a>
+                <span class="lh">,Inc.All Rights Reserved.</span>
+            </div>
+        </div>
+    </div>
 
 </body>
 
-<script th:src="@{/js/site.js}" type="text/javascript">
-	
+<script type="text/javascript" src="js/site.js">
+
 </script>
 
 <script type="text/javascript">
-	document.onkeydown = function(e) {
-		// 兼容FF和IE和Opera  
-		var theEvent = e || window.event;
-		var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
-		if (code == 13) {
-			$('#index_search').click();//具体处理函数  
-			return false;
-		}
-		return true;
-	}
+    document.onkeydown = function (e) {
+        // 兼容FF和IE和Opera  
+        var theEvent = e || window.event;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code == 13) {
+            $('#index_search').click(); //具体处理函数  
+            return false;
+        }
+        return true;
+    }
 </script>
 
 </html>

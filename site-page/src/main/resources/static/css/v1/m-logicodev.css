@@ -1421,3 +1421,29 @@ pre,code {
 .others .others-container .faq h2 {
     font-size: 30px
 }
+
+.slogan {
+    position: relative;
+    top: -21px;
+    color: #9b9b9b;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.hot {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 524px;
+}
+
+.hot a {
+    color: #d87575;
+}
+
+.hot a:hover {
+    color: #177CB0;
+}

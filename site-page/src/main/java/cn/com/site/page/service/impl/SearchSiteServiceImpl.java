@@ -19,6 +19,7 @@ import cn.com.site.es.esUtil.ESClient;
 import cn.com.site.es.util.ESConstant;
 import cn.com.site.page.dto.SiteResDto;
 import cn.com.site.page.service.SearchService;
+import cn.com.site.page.util.FilterKeyConstant;
 import cn.com.site.page.util.MessCodeUtil;
 
 /**
@@ -74,13 +75,20 @@ public class SearchSiteServiceImpl implements SearchService {
 				if (StringUtils.isNotBlank(desc)) {
 					keywords = desc;
 				}
-				
+
 				// 乱码过滤
 				if (MessCodeUtil.isMessyCode(title) || MessCodeUtil.isMessyCode(desc)) {
 					log.warn("mess info: title is {}, desc is {}", title, desc);
 					return;
 				}
-				
+
+				// 关键字过滤
+				for (FilterKeyConstant.FILTER_KEY key : FilterKeyConstant.FILTER_KEY.values()) {
+					if (StringUtils.contains(title, key.getInfo()) || StringUtils.contains(desc, key.getInfo())) {
+						return;
+					}
+				}
+
 				// 高亮命中
 				if (null != hit.getHighlightFields().get(ESConstant.TITLE)) {
 					title = hit.getHighlightFields().get(ESConstant.TITLE).getFragments()[0].toString();
@@ -91,6 +99,7 @@ public class SearchSiteServiceImpl implements SearchService {
 		}
 		log.info("get data from es cost time is {}, query is {}", (System.currentTimeMillis() - time), query);
 		return list;
+
 	}
 
 	/*
@@ -135,6 +144,7 @@ public class SearchSiteServiceImpl implements SearchService {
 				if (StringUtils.isNotBlank(desc)) {
 					keywords = desc;
 				}
+				
 				SiteResDto siteDto = new SiteResDto(title, url, imagePath, keywords);
 				list.add(siteDto);
 			}
