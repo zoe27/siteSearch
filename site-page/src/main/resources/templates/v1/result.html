@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="Keywords" content="冷门站点，精品站点，精品工具，工具，网站推荐，小众网站，有趣网站，优质网站" />
-<meta name="Description" content="汇聚众多的冷门以及小众但有价值的网站，其中更多的是精品网站，值得给大家推荐。内容涵盖了各类工具类，如垂直资源搜索引擎，图片视频处理工具，各种素材精品网站" />
+<meta name="Description"
+	content="汇聚众多的冷门以及小众但有价值的网站，其中更多的是精品网站，值得给大家推荐。内容涵盖了各类工具类，如垂直资源搜索引擎，图片视频处理工具，各种素材精品网站" />
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="generator" content="searx/0.14.0" />
@@ -17,7 +18,7 @@
 <link th:href="@{/css/v1/logicodev.css}" rel="stylesheet"
 	type="text/css" />
 <!-- 3D球效果 -->
-<link th:href="@{/css/miaov_style.css}" rel="stylesheet" type="text/css"/>
+<link th:href="@{/css/miaov_style.css}" rel="stylesheet" type="text/css" />
 
 <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
 
@@ -164,34 +165,35 @@
 						<div class="engine">bing</div>
 						<div class="engine">baidu</div>
 					</div> -->
-					
-					
+
+
 
 				</div>
 
 
-				<div class="clearfix"></div>
+				<!-- <div class="clearfix"></div> -->
 
 				<div id="pagination">
-					 <div class="pull-left">
+					<div class="pull-left">
 						<form class="pull-left" onclick="return false;">
 
 							<input type="hidden" name="pageno" value="0" />
-							<button  class="btn" value="" id="searchPre" onclick="pageClick(this)">
-								<img src="/img/double-left.png"/>
-								<i class="fa fa-backward" aria-hidden="true"></i> 上一页
+							<button class="btn" value="" id="searchPre"
+								onclick="pageClick(this)">
+								<img src="/img/double-left.png" /> <i class="fa fa-backward"
+									aria-hidden="true"></i> 上一页
 							</button>
 						</form>
 					</div>
 					<div class="pull-right">
 						<form class="pull-left" onclick="return false;">
 							<input type="hidden" name="pageno" value="2" />
-							<button class="btn" value="" id="searchNext" onclick="pageClick(this)" >
-								下一页
-								<img src="/img/double-right.png"/>
+							<button class="btn" value="" id="searchNext"
+								onclick="pageClick(this)">
+								下一页 <img src="/img/double-right.png" />
 							</button>
 						</form>
-					</div> 
+					</div>
 				</div>
 				<!-- /#pagination -->
 				<div class="clearfix"></div>
@@ -220,7 +222,11 @@
 			<!-- /#sidebar_results -->
 		</div>
 
+		<!-- 底部内容 -->
+		<div th:replace="common/footer::header"></div>
 	</div>
+
+
 
 
 
@@ -249,8 +255,8 @@
 			return true;
 		}
 	</script>
-	
-	
+
+
 </body>
 
 
