@@ -11,6 +11,7 @@ package cn.com.site.page.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -25,23 +26,33 @@ public class GoWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private String sourceFilePre = "file://";
+
+    @Value("${img.path}")
+    // /Users/zhoubin/Documents/project/git/snapShotSitepress/"
+    private String imgPath = "/snapshot/snapShotSitepress/";
+
+    private String customImgPath = sourceFilePre + imgPath;
+
     // 配置可访问的资源路径
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         String resourcePath = PathUtil.resourcePath();
-        String imageParentPath = "file://" + resourcePath.replace("siteSearchEngine/", "") + "snapShotSite/";
+        String imageParentPath = sourceFilePre + resourcePath.replace("siteSearchEngine/", "") + "snapShotSite/";
         if (EPlatform.Linux == OSinfo.getOSname()) {
-            imageParentPath = "file://" + resourcePath + "snapshot/snapShotSite/";
+            imageParentPath = sourceFilePre + resourcePath + "snapshot/snapShotSite/";
         }
         log.info("image path is {}", imageParentPath);
+        log.info("customer img path is {}", customImgPath);
         //配置静态资源处理
         registry.addResourceHandler("/**")
                 .addResourceLocations("resources/", "static/", "public/",
                         "META-INF/resources/")
                 .addResourceLocations("classpath:resources/", "classpath:static/",
                         "classpath:public/", "classpath:META-INF/resources/")
-                .addResourceLocations(imageParentPath);
+                .addResourceLocations(imageParentPath)
+                .addResourceLocations(customImgPath);
     }
 }
 

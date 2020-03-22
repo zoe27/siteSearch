@@ -21,6 +21,9 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
+import org.elasticsearch.index.query.functionscore.ScriptScoreFunctionBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
@@ -350,4 +353,31 @@ public class ESClient {
 
         return response;
     }
+
+    /**
+     * 随机抽取部分数据
+     * @param index
+     * @param type
+     * @return
+     */
+    public SearchResponse getRandomData(String index, String type, int size){
+
+        SearchResponse response = null;
+        SearchRequestBuilder requestBuilder = client.prepareSearch(index).setTypes(type);
+
+        // 随机函数
+        ScriptScoreFunctionBuilder scoreFunction = ScoreFunctionBuilders.scriptFunction("Math.random()");
+        FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery(scoreFunction);
+
+        requestBuilder.setFrom(0).setSize(size);
+        requestBuilder.setQuery(functionScoreQueryBuilder);
+        logger.info(requestBuilder);
+
+        response = requestBuilder.get();
+        if (null != response) {
+            response.getHits();
+        }
+        return response;
+    }
+
 }

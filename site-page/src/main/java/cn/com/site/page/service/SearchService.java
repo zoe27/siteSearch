@@ -29,5 +29,11 @@ public interface SearchService {
 	 * @return
 	 */
 	List<SiteResDto> searchRecent();
+
+	/**
+	 * 随机返回部分数据
+	 * @return
+	 */
+	List<SiteResDto> searchRandom();
 }
 

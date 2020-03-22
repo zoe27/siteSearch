@@ -3,6 +3,7 @@ package cn.com.site.page.service.impl;
 import java.util.List;
 import java.util.Set;
 
+import cn.com.site.page.util.FileUtil;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -10,6 +11,7 @@ import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
@@ -32,6 +34,9 @@ import cn.com.site.page.util.MessCodeUtil;
  */
 @Service
 public class SearchSiteServiceImpl implements SearchService {
+
+	@Value("${img.path}")
+	private String imgPath;
 
 	@Autowired
 	private ESClient esclient;
@@ -152,6 +157,60 @@ public class SearchSiteServiceImpl implements SearchService {
 		}
 		log.info("get recent data from es cost time is {}, query is {}", (System.currentTimeMillis() - time));
 		list = list.size() > 10 ? list.subList(0, 10) : list;
+		return list;
+	}
+
+	@Override
+	public List<SiteResDto> searchRandom() {
+		List<SiteResDto> list = Lists.newArrayList();
+		// TODO Auto-generated method stub
+		SearchResponse response = esclient.getRandomData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),
+				ESConstant.ES_SITE_INFO.TYPE.getInfo(), 150);
+		SearchHits hits = null;
+		long time = System.currentTimeMillis();
+		if (response != null) {
+			hits = response.getHits();
+		}
+		if (hits != null) {
+			for (int i = 0; i < hits.getHits().length; i++) {
+				SearchHit hit = hits.getHits()[i];
+				String title = hit.getSourceAsMap().get(ESConstant.TITLE).toString();
+				// title 长度控制在15个字符左右
+				if (StringUtils.isNotBlank(title) && title.length() > 15) {
+					title = title.substring(0, 15).concat("....");
+				}
+				String url = hit.getSourceAsMap().get(ESConstant.URL).toString();
+				// 这里是为了防止前端按钮出不来的问题
+				if (StringUtils.endsWith(url, "/")) {
+					url = StringUtils.substringBeforeLast(url, "/");
+				}
+				String keywords = hit.getSourceAsMap().get(ESConstant.KEYWORDS).toString();
+				String imagePath = hit.getSourceAsMap().getOrDefault(ESConstant.IMAGE_PATH, "").toString().replace(".png",".jpg");
+				if (StringUtils.isEmpty(imagePath)){
+					continue;
+				}
+				if (!FileUtil.isFileExist(imgPath + imagePath)){
+					log.warn("image not exist {}, full path is {}", imagePath, imgPath + imagePath);
+					continue;
+				}
+				String desc = hit.getSourceAsMap().get(ESConstant.DESC).toString();
+
+				// 乱码过滤
+				if (MessCodeUtil.isMessyCode(title) || MessCodeUtil.isMessyCode(desc)) {
+					log.warn("mess info: title is {}, desc is {}", title, desc);
+					continue;
+				}
+
+				if (StringUtils.isNotBlank(desc)) {
+					keywords = desc;
+				}
+
+				SiteResDto siteDto = new SiteResDto(title, url, imagePath, keywords);
+				list.add(siteDto);
+			}
+			;
+		}
+		log.info("get random data from es cost time is {}, query is {}", (System.currentTimeMillis() - time));
 		return list;
 	}
 

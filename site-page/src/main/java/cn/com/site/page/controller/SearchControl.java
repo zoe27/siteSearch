@@ -81,4 +81,14 @@ public class SearchControl {
         // model.addAttribute("url", url);
         // return "/common/redirect";
     }
+
+    @RequestMapping("/random")
+    @ResponseBody
+    public List<SiteResDto> searchRandom(HttpServletRequest request){
+        log.info("get recent data");
+        AccessSourceLog.accessLog(request);
+        List<SiteResDto> list = searchService.searchRandom();
+        log.warn("random list is {}", list.size());
+        return list;
+    }
 }
