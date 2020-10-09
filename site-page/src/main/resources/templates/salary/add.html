@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>怀玉乡旅游订单填写</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="browsermode" content="application"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="x5-page-mode" content="app"/>
+    <link th:href="@{/salary/css/lxs_index.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/salary/css/lxsHeadFoot.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/salary/css/order_new.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/salary/js/order_xianlu.js}"></script>
+</head>
+<body>
+
+<div class="content">
+    <div class="headTop">
+        <a href="javascript:history.go(-1)" class="back"><i
+                class="iconBack"></i></a><span>新增薪资</span>
+    </div>
+</div>
+
+
+<div class="j_main m-main">
+    <form action="" method="post" name="form_1" th:action="@{/salary/add}" th:object="${salaryDto}">
+
+
+        <div class="tit">
+            <i></i>填写申明<br/> <span>该内容为用户主动填写，暂时没有审核环节，希望大家提供真实信息，并帮助其他用户获取透明，真实数据</span>
+        </div>
+        <div class="txt txt2 J_baoxian"></div>
+        <script type="text" id="j_baoxian_con">
+             <dl> <dt> <a href="javascript:;" class="j_baoxian_tit J_baoxian_info">*title*</a> <input type="hidden" name="*name1*" value="*id*" /> <input type="hidden" name="*name2*" value="*price*" /> </dt> <dd> <font><span class="j_baoxian_c">*price_c*</span><i class="more"></i></font> </dd> </dl>
+
+        </script>
+
+
+        <div class="tit">
+            <i></i>职位信息
+        </div>
+        <div class="txt">
+            <dl>
+                <dt>职称</dt>
+                <dd>
+                    <input maxlength="20" type="text" name="truename" class="o_man"
+                           placeholder="高级软件工程师" th:field="*{title}" value=""/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>级别</dt>
+                <dd class="pd0">
+                    <input type="tel" name="mobiletel" id="n_mobiletel" th:field="*{level}"
+                           class="o_number" maxlength="11" placeholder="P8" value=""/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>公司</dt>
+                <dd class="o_yanzhengNo">
+                    <input type="text" id="code" name="code" class="o_yz"
+                           placeholder="腾讯" maxlength="6" th:field="*{company}"/>
+                    <div class="o_yzTrips"></div>
+                </dd>
+            </dl>
+			<dl>
+				<dt>工作地点</dt>
+				<dd class="o_yanzhengNo">
+					<input type="text" id="code" name="code" class="o_yz"
+						   placeholder="北京" maxlength="6" th:field="*{location}"/>
+					<div class="o_yzTrips"></div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>入职年限</dt>
+				<dd class="box-flex-2">
+						<span class="subadd j_num"><span class="sub"
+														 data-type="adults"></span><input id="j_price_d_num"
+																						  type="number"
+																						  min="0" max="99"
+																						  class="text_num" value="1"
+                                                                                          th:field="*{yearInCome}"
+																						  name="adult_num"/><span
+								class="add" data-type="adults"></span></span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>工作时长</dt>
+				<dd class="o_yanzhengNo">
+					<input type="text" id="code" name="code" class="o_yz" th:field="*{hours}"
+						   placeholder="965" maxlength="6"/>
+					<div class="o_yzTrips"></div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>应聘模式</dt>
+				<dd class="o_yanzhengNo">
+					<input type="text" id="code" name="code" class="o_yz"
+						   placeholder="社招" maxlength="6" th:field="*{hireType}"/>
+					<div class="o_yzTrips"></div>
+				</dd>
+			</dl>
+        </div>
+
+
+        <div class="tit">
+            <i></i>薪资信息
+        </div>
+        <div class="txt">
+            <dl>
+                <dt>月基本薪资</dt>
+                <dd>
+                    <input maxlength="20" type="text" name="truename" class="o_man"
+                           placeholder="20000" value="" th:field="*{baseOfMont}"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>年终奖</dt>
+                <dd class="pd0">
+                    <input type="tel" name="mobiletel" id="n_mobiletel" th:field="*{bounsComp}"
+                           class="o_number" maxlength="11" placeholder="180000" value=""/>
+                </dd>
+
+            </dl>
+            <dl>
+                <dt>股票</dt>
+                <dd class="o_yanzhengNo">
+                    <input type="text" id="code" name="code" class="o_yz" th:field="*{stockComp}"
+                           placeholder="200000" maxlength="6"/>
+                    <div class="o_yzTrips"></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>年包</dt>
+                <dd class="o_yanzhengNo">
+                    <input type="text" id="code" name="code" class="o_yz" th:field="*{totalComp}"
+                           placeholder="600000" maxlength="6"/>
+                    <div class="o_yzTrips"></div>
+                </dd>
+            </dl>
+        </div>
+
+
+        <div class="tit">
+            <i></i>基本信息
+        </div>
+        <div class="txt">
+            <dl>
+                <dt>毕业院校</dt>
+                <dd>
+                    <input maxlength="20" type="text" name="truename" class="o_man"  th:field="*{college}"
+                           placeholder="北京大学" value=""/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>工作年限</dt>
+                <dd class="box-flex-2">
+						<span class="subadd j_num"><span class="sub"
+                                                         data-type="adults"></span><input id="j_price_d_num"
+                                                                                          type="number"
+                                                                                          min="0" max="99"
+                                                                                          th:field="*{yearOfExp}"
+                                                                                          class="text_num" value="1"
+                                                                                          name="adult_num"/><span
+                                class="add" data-type="adults"></span></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>学历</dt>
+                <dd class="o_yanzhengNo">
+                    <input type="text" id="code" name="code" class="o_yz"  th:field="*{degree}"
+                           placeholder="本科" maxlength="6"/>
+                    <div class="o_yzTrips"></div>
+                </dd>
+            </dl>
+        </div>
+        <script type="text" id="j_kehu_c">
+             <dl class="j_kehu_open"> 
+				<dt> <span>游客*i*</span> <div class="none"> 
+				<input maxlength="20" type="hidden" class="o_man tourist_name" name="insurance_username[]" placeholder="游客姓名（必填）"/> 
+				<input type="hidden" class="o_man tourist_phone_number" name="phone_number[]" placeholder="手机号码（选填）"/> 
+				<input type="hidden" class="o_man tourist_identity_card" name="idcard_no[]" placeholder="身份证号码（必填）"/>  
+				</div> </dt> <dd> <font class="corBlue"><span>填写信息</span><i class="more fr"></i></font> </dd> </dl>
+
+        </script>
+        <script></script>
+
+        <div class="coupon_con" id="j_youhui">
+            <div class="coupon_txt">
+                <dl data-coupon-id="" data-amount="">
+                    <dd>
+                        <money>&yen;1253</money>
+                        <p>优惠券</p>
+                    </dd>
+                    <dt>
+                        <i class="checkbox"></i>
+                    </dt>
+                </dl>
+            </div>
+        </div>
+        <div class="booking_notes">
+            <label><i class="on"></i>我已同意提交并确认内容真实</label><a href="javascript:;"
+                                                           class="btn_notes">温馨提示</a>
+<!--            <p>温馨提示：为了保障您的出游权益，请务必在线支付订单。</p>-->
+        </div>
+    </form>
+    <div class="submintFix">
+        <dl>
+            <dd class="sbmFix">
+                <button type="button" id="save">提交</button>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="notes_con" id="contentWrapper">
+    <div class="text_con" id="contentScroller">
+        <strong>零售平台预订须知 （免责条款）</strong><b>第一条.特别须知</b>
+
+        <p>其他事宜可参照中国旅游局、地方各级旅游部门发出的文明旅游公约等系列文件。</p>
+    </div>
+    <a href="javascript:;" class="close"></a>
+</div>
+
+<script th:src="@{/salary/js/min_com.js}"></script>
+<script>
+    /*<![CDATA[*/
+    var is_dijie = '0'; /*预定须知弹窗*/
+    var cart_type_num = 0;
+    var myScroll;
+    var mobiletel_regexp = /^1[3|4|5|7|8|9][0-9]\d{8}$/;
+
+    function loaded() {
+        myScroll = new iScroll('contentWrapper');
+    }
+
+    function bodyscroll(e) {
+        e.preventDefault();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(loaded, 200);
+    }, false);
+    $('.btn_notes').click(function () {
+        $('.notes_con').show();
+        setTimeout(loaded, 300);
+        document.addEventListener('touchmove', bodyscroll, false);
+    });
+    $('.notes_con').click(function () {
+        $(this).hide();
+        document.removeEventListener('touchmove', bodyscroll, false);
+    }); /*60秒倒计时*/
+    var wait = 60;
+
+    function time_d(t) {
+        if (wait == 0) {
+            $(t).removeAttr("disabled").html("获取验证码");
+            wait = 60;
+        } else {
+            $(t).attr("disabled", "disabled").html(wait + '秒后重新发送')
+                .addClass('disable');
+            wait--;
+            setTimeout(function () {
+                time_d(t);
+            }, 1000);
+        }
+    } /*游客信息检测*/
+
+    function tourist_check() {
+        var tourist_list = $(".j_kehu_open"), type = 1;
+        for (var j = 0; j < tourist_list.length; j++) {
+            var tr = tourist_list.eq(j);
+            if (!tr.data('full')) {
+                alert('请填写<b style="color:#FFF000">游客' + (j + 1)
+                    + '</b>的信息');
+                type = 0;
+                break;
+            }
+        }
+        ;
+        return type ? true : false;
+    }; /*异步核对验证码*/
+
+    function mobiletel_code_check() {
+        var ajax_url = '/order/checkCode', code = $('input[name="code"]')
+            .val(), mobiletel = $('input[name="mobiletel"]').val();
+        if (mobiletel == '') {
+            alert('请输入手机号码');
+            return false;
+        } else if (!checkMobile(mobiletel)) {
+            alert('请输入正确的手机号码');
+            return false;
+        } else if (code == '' || code.length != 6) {
+            alert('请输入6位验证码');
+            return false;
+        }
+        $('#save').addClass('not');
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: {
+                mobiletel: mobiletel,
+                code: code,
+                inajax: 1
+            },
+            dataType: 'json',
+            success: function (data) { /*console.log(data);*/
+                if (data == '1') {
+                    alert('手机验证完毕');
+                    document.form_1.submit();
+                } else {
+                    $('#save').removeClass('not');
+                    if (data == '-1') {
+                        alert('手机号码错误');
+                        return false;
+                    } else if (data == '-2') {
+                        alert('验证码错误');
+                        return false;
+                    } else {
+                        alert('意外错误');
+                        return false;
+                    }
+                }
+            },
+            error: function () {
+                $('#save').removeClass('not');
+                alert('意外错误');
+                return false
+            }
+        });
+    }
+
+    $(function () { /*表单提交*/
+        $('#save')
+            .click(
+                function (e) {
+                    e.stopPropagation();
+                    if ($('#save').hasClass('not'))
+                        return false;
+                    var uid = parseInt($("#uid").val()); /*检测游客填写的身份信息*/
+                    if (!tourist_check()) {
+                        return false;
+                    }
+
+                    $('#save').addClass('not');
+                    document.form_1.submit();
+                    /*var true_name = $('input[name="truename"]')
+                        .val(), mobiletel = $(
+                        'input[name="mobiletel"]').val();
+                    if (true_name == '') {
+                        alert('联系人为必须填写项');
+                        return false;
+                    } else if (true_name.length < 2) {
+                        alert('联系人过短，请重新输入');
+                        return false;
+                    } else if (true_name.length > 10) {
+                        alert('联系人长度仅限10个字符，请重新输入');
+                        return false;
+                    } else if (mobiletel == '') {
+                        alert('手机号码为必须填写项');
+                        return false;
+                    } else if (mobiletel.length != 11
+                        || !mobiletel_regexp.test(mobiletel)) {
+                        alert('手机号码不正确，请重新输入');
+                        return false;
+                    }
+                    if (!$('.booking_notes i').hasClass('on')) {
+                        alert('请阅读并同意此产品的预订须知');
+                        return false;
+                    }
+                    if (uid == 0) {
+                        mobiletel_code_check();
+                    } else {
+                        $('#save').addClass('not');
+                        document.form_1.submit();
+                    }*/
+                }); /*发送手机验证码*/
+        $(".mobile_code")
+            .click(
+                function () {
+                    var th = $(this), tel = $("#n_mobiletel").val(), r_url = '/account/getcode?inajax=1&mobiletel='
+                        + tel + '&idtype=4';
+                    if (tel == '') {
+                        alert('请先输入手机号码');
+                        return false;
+                    }
+                    if (tel.length != 11
+                        || !mobiletel_regexp.test(tel)) {
+                        alert('手机号码不正确，请您重新输入');
+                        return false
+                    }
+                    if (th.hasClass('not')) {
+                        return false;
+                    }
+                    th.addClass('not');
+                    setTimeout(function () {
+                        th.removeClass('not');
+                    }, 60000);
+                    $.get(r_url, function (data) {
+                        if (data == '1') {
+                            alert('短信已发送，请查看');
+                        } else if (data == '-1') {
+                            alert('获取失败，手机号码不能为空');
+                        } else if (data == '-2') {
+                            alert('获取失败，手机号码错误');
+                        } else if (data == '-3') {
+                            alert('获取失败，该手机已被注册');
+                        } else if (data == '-4') {
+                            alert('您的操作太频繁，请稍候再试');
+                        } else if (data == '-8') {
+                            alert('同一ip一天最多10条短信');
+                        } else if (data == '-5') {
+                            alert('同一手机一个月最多5条短信');
+                        } else if (data == '-6') {
+                            alert('获取失败，获取验证时间间隔60秒');
+                        } else {
+                            alert('获取失败');
+                        }
+                    });
+                }); /*改变证件类型事件*/
+        $('#j_kehu_list').on(
+            'change',
+            '.tourist_box .certificate_type',
+            function () {
+
+                placeholder = mark + '号码（必填）';
+                cur.closest('dl').next('dl').find('dt').html(mark)
+                    .siblings('dd').find('input[type="text"]')
+                    .attr('placeholder', placeholder);
+            });
+    });
+
+    function guoqing_yh() {
+
+    }
+
+    /*]]>*/
+</script>
+</body>
+</html>

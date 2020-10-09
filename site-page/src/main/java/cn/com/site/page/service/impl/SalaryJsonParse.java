@@ -1,5 +1,7 @@
 package cn.com.site.page.service.impl;
 
+import cn.com.site.page.mapper.SalaryMapper;
+import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -14,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SalaryJsonParse implements SalaryService{
+
+	@Autowired
+	private SalaryMapper salaryMapper;
 
 	// {"date":"2020-08-04","baseMonthComp":34000,"country":"domestic","jobCategory":"","role":"","gender":"男","stockComp":0,"focus":["后端"],
 	// "industry":"IT","title":"软件工程师","yrOfExp":6,"bonusComp":102000,"offerType":"","yrInCom":3,"company":"滴滴","department":"滴滴快车","baseComp":408000,
@@ -84,4 +90,52 @@ public class SalaryJsonParse implements SalaryService{
 		return list;
 	}
 
+	public void translateSalary(){
+		String salaryPath = "salary/salaryInfo.json";
+		String content = fileLoad.loadContent(salaryPath);
+		JSONArray array = JSON.parseArray(content);
+		array.forEach(e->{
+			JSONObject obj = JSON.parseObject(e.toString());
+			String company = obj.getString(SalaryConstant.COMPANY);
+			String title = obj.getString(SalaryConstant.TITLE);
+			String level = obj.getString(SalaryConstant.LEVEL);
+			String yearOfExp = obj.getString(SalaryConstant.YEAR_OF_EXP);
+			String yearInCome = obj.getString(SalaryConstant.YEAR_IN_COME);
+			String bounsComp = obj.getString(SalaryConstant.BOUNS_COMP);
+			String baseComp = obj.getString(SalaryConstant.BASE_COMP);
+			String totalComp = obj.getString(SalaryConstant.TOTAL_COMP);
+			String baseOfMonth = obj.getString(SalaryConstant.BASE_MONTH_COMP);
+			String stockComp = obj.getString(SalaryConstant.STOCK_COMP);
+			String degree = obj.getString(SalaryConstant.DEGREE);
+			String location = obj.getString(SalaryConstant.LOCATION);
+			String hireType = obj.getString(SalaryConstant.HIRE_TYPE);
+			String hours = obj.getString(SalaryConstant.HOURS);
+			Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
+					Float.parseFloat(StringUtils.isEmpty(yearInCome) ? "0" : yearInCome),
+					Float.parseFloat(StringUtils.isEmpty(bounsComp) ? "0" : bounsComp),
+					Float.parseFloat(StringUtils.isEmpty(baseComp) ? "0" : baseComp),
+					Float.parseFloat(StringUtils.isEmpty(totalComp) ? "0" : totalComp),
+					Float.parseFloat(StringUtils.isEmpty(baseOfMonth) ? "0" : baseOfMonth),
+					Integer.parseInt(StringUtils.isEmpty(stockComp) ? "0" : stockComp), degree, location,
+					"社招".equals(hireType) ? 0 : 1, hours, "");
+			salaryMapper.insert(salary);
+		});
+	}
+
+
+
+	@Override
+	public int saveSalary(Salary salary) {
+		salaryMapper.insert(salary);
+		return 0;
+	}
+
+	@Override
+	public List<Salary> selectByContion(String condition, Integer begin, Integer limit) {
+		if (StringUtils.isEmpty(condition)){
+			return salaryMapper.selectAllPage(begin, limit);
+		}else{
+			return salaryMapper.selectByCondition(condition, begin, limit);
+		}
+	}
 }

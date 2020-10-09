@@ -410,7 +410,7 @@ a {
 
 .aui-footer {
     width: 100%;
-    position: relative;
+    position: fixed;
     z-index: 100;
     display: -webkit-box;
     display: -webkit-flex;
@@ -422,6 +422,7 @@ a {
     align-items: center;
     padding: 7px 5px 7px 5px;
     background: #ffffff;
+    bottom: 0px;
 }
 
 .aui-footer:after {

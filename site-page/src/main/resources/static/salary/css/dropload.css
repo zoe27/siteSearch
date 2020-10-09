@@ -6,6 +6,7 @@
     /* 开启硬件加速 */
     -webkit-transform:translateZ(0);
     transform:translateZ(0);
+    margin-bottom: 40px;
 }
 .dropload-down{
     height: 50px;

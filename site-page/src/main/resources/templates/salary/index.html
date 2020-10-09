@@ -81,14 +81,14 @@
                         <header class="aui-navBar aui-navBar-fixed">
                             <div class="aui-center aui-center-clear">
                                 <div class="aui-job-search">
-                                    <div class="aui-job-search-box">
+                                    <div class="aui-job-search-box" id="aui-job-search-box">
                                         <i class="icon icon-search"></i>
-                                        <input type="text" placeholder="搜索职位/公司"/>
+                                        <input type="text" placeholder="搜索职位/公司" id="searchCompany"/>
                                     </div>
                                 </div>
                             </div>
 
-                            <a href="javascript:;" class="aui-navBar-item">
+                            <a href="/salary/addIdx" class="aui-navBar-item">
 <!--                                <i class="icon icon-plus"></i>-->
                                 <div class="aui-icon-s"><i class="icon-add icon-sys"></i></div>
 <!--                                <div>扫一扫</div>-->
@@ -161,9 +161,6 @@
 
     </div>
 
-
-
-
     </body>
 
 <script th:src="@{/salary/js/dropload.js}" type="text/javascript"></script>
@@ -173,21 +170,21 @@
 
 
 <script>
+    num = 10;
+    pageStart = 0,pageEnd = 0;
+    query = $('#searchCompany')[0].value;
     $(function(){
         var counter = 0;
         // 每页展示4个
-        var num = 10;
-        var pageStart = 0,pageEnd = 0;
-
-        // dropload
-        var dropload = $('.aui-job-list').dropload({
+        //var
+        dropload = $('.aui-job-list').dropload({
             scrollArea : window,
 
             loadDownFn : function(me){
-                console.log('/getSalary?begin='+pageStart+'&amp;limit='+num)
+                console.log('/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num)
                 $.ajax({
                     type: 'GET',
-                    url: '/getSalary?begin='+pageStart+'&amp;limit='+num,
+                    url: '/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num,
                     dataType: 'json',
                     success: function(data){
                         var result = setData(data.t);
@@ -217,7 +214,7 @@
                     }
                 });
             },
-            threshold : 50
+            threshold : 100
         });
     });
 </script>
@@ -250,6 +247,33 @@
             $('[data-toggle="offcanvas"]').click(function () {
                 $('#wrapper').toggleClass('toggled');
             });
+
+            $('#aui-job-search-box').keydown(function(e){
+                query = $('#searchCompany')[0].value;
+                pageStart = 0;
+                if(e.keyCode==13){
+                    $.ajax({
+                        type: 'GET',
+                        url: '/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num,
+                        dataType: 'json',
+                        success: function(data){
+                            // var result = setData(data.t);
+                            pageStart++;
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function(){
+                                appendResultToPageV1($('.test'), data);
+                                // 每次数据加载完，必须重置
+                                dropload.resetload();
+                            },1000);
+                        },
+                        error: function(xhr, type){
+                            // 即使加载出错，也得重置
+                            dropload.resetload();
+                        }
+                    });
+                }
+            });
         });
+
     </script>
 </html>
