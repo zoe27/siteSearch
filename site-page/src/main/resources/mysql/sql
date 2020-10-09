@@ -1,0 +1,19 @@
+CREATE TABLE `salary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Auto increased primary key',
+  `company` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Company name ',
+  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Title in company , such as senior soft engineer',
+  `level` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'tencent 3.1/10  , baidu  T5/T6',
+  `year_of_exp` float(3,1) NOT NULL COMMENT 'Work years',
+  `year_in_come` float(3,1) NOT NULL COMMENT 'Years in the current compamy',
+  `bouns_comp` float(10,2) DEFAULT NULL COMMENT 'Bouns  one year.  ',
+  `base_comp` float(10,2) DEFAULT NULL,
+  `total_comp` float(12,2) NOT NULL COMMENT 'All salary one years, contain base salary and stock',
+  `base_of_month` float(10,2) NOT NULL COMMENT 'Salary of one month',
+  `stock_comp` int(11) DEFAULT NULL COMMENT 'stock',
+  `degree` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Master /Pd D',
+  `location` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'location,  eg.  beijing,  shenzhen , Shanghai ',
+  `hire_type` int(2) DEFAULT NULL COMMENT 'Hire type ,  from 1: school or 2: socity',
+  `hours` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Work hours , 985/996/007',
+  `college` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Graduate college.  CUS',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

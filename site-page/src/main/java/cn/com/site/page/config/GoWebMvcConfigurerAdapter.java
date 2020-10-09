@@ -29,8 +29,9 @@ public class GoWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     private String sourceFilePre = "file://";
 
     @Value("${img.path}")
-    // /Users/zhoubin/Documents/project/git/snapShotSitepress/"
-    private String imgPath = "/snapshot/snapShotSitepress/";
+    // /Users/zhoubin/Documents/project/git/snapShotSitepress/
+    // /snapshot/snapShotSitepress/
+    private String imgPath = "/Users/zhoubin/Documents/project/git/snapShotSitepress/";
 
     private String customImgPath = sourceFilePre + imgPath;
 

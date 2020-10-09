@@ -67,8 +67,8 @@ public class ESClient {
         // 创建client
         try {
             client = new PreBuiltTransportClient(setTmp);
-            client.addTransportAddress(new TransportAddress(InetAddress.getByName(ip), port));
-        } catch (UnknownHostException e) {
+            // client.addTransportAddress(new TransportAddress(InetAddress.getByName(ip), port));
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             logger.error("", e);
         }
