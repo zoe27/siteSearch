@@ -15,5 +15,6 @@ CREATE TABLE `salary` (
   `hire_type` int(2) DEFAULT NULL COMMENT 'Hire type ,  from 1: school or 2: socity',
   `hours` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Work hours , 985/996/007',
   `college` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Graduate college.  CUS',
+  `core_info` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Core info of the record\n',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+) ENGINE=InnoDB AUTO_INCREMENT=4586 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
