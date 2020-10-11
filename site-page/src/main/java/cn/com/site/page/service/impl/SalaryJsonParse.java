@@ -1,6 +1,8 @@
 package cn.com.site.page.service.impl;
 
+import cn.com.site.page.dto.SalaryCoreInfo;
 import cn.com.site.page.mapper.SalaryMapper;
+import cn.com.site.page.security.Aes;
 import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -13,7 +15,6 @@ import cn.com.site.page.util.SalaryConstant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
@@ -110,14 +111,23 @@ public class SalaryJsonParse implements SalaryService{
 			String location = obj.getString(SalaryConstant.LOCATION);
 			String hireType = obj.getString(SalaryConstant.HIRE_TYPE);
 			String hours = obj.getString(SalaryConstant.HOURS);
-			Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
+
+			SalaryCoreInfo coreInfo = new SalaryCoreInfo(bounsComp, baseComp, totalComp, baseOfMonth, stockComp);
+			String salaryCoreInfo = Aes.aesEncrypt(JSON.toJSONString(coreInfo));
+
+			/*Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
 					Float.parseFloat(StringUtils.isEmpty(yearInCome) ? "0" : yearInCome),
 					Float.parseFloat(StringUtils.isEmpty(bounsComp) ? "0" : bounsComp),
 					Float.parseFloat(StringUtils.isEmpty(baseComp) ? "0" : baseComp),
 					Float.parseFloat(StringUtils.isEmpty(totalComp) ? "0" : totalComp),
 					Float.parseFloat(StringUtils.isEmpty(baseOfMonth) ? "0" : baseOfMonth),
 					Integer.parseInt(StringUtils.isEmpty(stockComp) ? "0" : stockComp), degree, location,
-					"社招".equals(hireType) ? 0 : 1, hours, "");
+					"社招".equals(hireType) ? 0 : 1, hours, "", salaryCoreInfo);*/
+
+			Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
+					Float.parseFloat(StringUtils.isEmpty(yearInCome) ? "0" : yearInCome),
+					0f,0f,0f,0f,0, degree, location,
+					"社招".equals(hireType) ? 0 : 1, hours, "", salaryCoreInfo);
 			salaryMapper.insert(salary);
 		});
 	}
@@ -126,6 +136,8 @@ public class SalaryJsonParse implements SalaryService{
 
 	@Override
 	public int saveSalary(Salary salary) {
+		/*SalaryCoreInfo coreInfo = new SalaryCoreInfo(salary.getBounsComp(), salary.getBaseComp(), salary.getTotalComp(), salary.getBaseOfMonth(), salary.getStockComp());
+		String salaryCoreInfo = Aes.aesEncrypt(JSON.toJSONString(coreInfo));*/
 		salaryMapper.insert(salary);
 		return 0;
 	}

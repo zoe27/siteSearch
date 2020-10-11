@@ -16,8 +16,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.com.site.page.dto.SalaryCoreInfo;
 import cn.com.site.page.dto.SalaryDto;
+import cn.com.site.page.security.Aes;
 import cn.com.site.page.vo.Salary;
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,6 +81,9 @@ public class SalaryController {
 		salary.setTotalComp(Float.parseFloat(salaryDto.getTotalComp()));
 		salary.setYearInCome(Float.parseFloat(salaryDto.getYearInCome()));
 		salary.setYearOfExp(Float.parseFloat(salaryDto.getYearOfExp()));
+		SalaryCoreInfo salaryCoreInfo = new SalaryCoreInfo();
+		String salaryCoreInfoString = Aes.aesEncrypt(JSON.toJSONString(salaryCoreInfo));
+		salary.setCoreInfo(salaryCoreInfoString);
 		log.info("{}", salary);
 		salaryJsonParse.saveSalary(salary);
 		return "result";
@@ -94,9 +100,9 @@ public class SalaryController {
 	@RequestMapping("salary/salaryCondtion")
 	@ResponseBody
 	public PageBean<List<Salary>> getSalaryCondition(HttpServletRequest request,
-					@RequestParam(name = "begin", defaultValue = "0") Integer begin,
-					@RequestParam(name = "limit", defaultValue = "10") Integer limit,
-					@RequestParam(name = "query", defaultValue = "") String query){
+													 @RequestParam(name = "begin", defaultValue = "0") Integer begin,
+													 @RequestParam(name = "limit", defaultValue = "10") Integer limit,
+													 @RequestParam(name = "query", defaultValue = "") String query){
 		List<Salary> list = Lists.newArrayList();
 		int idx = begin * limit;
 		list = salaryJsonParse.selectByContion(query, idx, limit);

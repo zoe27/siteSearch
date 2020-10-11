@@ -24,13 +24,22 @@ function setData(data){
 	var ahref = $('<a href="javascript:;" class="aui-flex"></a>');
 	var subDiv = $('<div class="aui-flex-box"></div>');
 	var secondDiv = $('<div class="aui-monthly"></div>');
-		
+
+	var info = JSON.parse(decrypt(item.coreInfo));
+	if (info.baseOfMont == undefined){
+		info.baseOfMont = Math.ceil(info.baseComp / 12);
+	}
 	var title = $('<h2>'+item.title+'</h2>');
 	var locDegreeYear = $('<p>'+item.location+ '|工作'+ item.yearOfExp + '年|' +item.degree+'</p>');
-	var salary = $('<span><em>'+'级别:'+item.level+'</em>'+ '<em>年包:'+ item.totalComp + '</em>' + '<em>入职:'+ item.yearInCome + '年</em>'+ '<em>年终:'+ item.bounsComp + '年</em>'+'</span>');
-		
+	var salary = $('<span><em>'+'级别:'+item.level+'</em>'+
+						'<em>年包:'+ info.totalComp + '</em>' +
+						'<em>入职:'+ item.yearInCome + '年</em>'+
+						'<em>年终:'+ info.bounsComp + '/年</em>'+
+						'<em>股票:'+ info.stockComp + '</em>'+
+						'</span>');
+
 	var company = $('<p>'+item.company+'</p>');
-	var baseMon = $('<h3>'+item.baseOfMonth+'</h3><p>  </p>');
+	var baseMon = $('<h3>'+info.baseOfMont+'</h3><p>  </p>');
 
 
 	/*	var title = $('<h2>'+item.title+'</h2>');
@@ -67,6 +76,12 @@ function getSalary(){
 	$.get("/getSalary?begin=10&limit=10" ,function (data){
 		appendResultToPageV1(div, data);
 	});
+}
+
+function decrypt(word) {
+	var key = CryptoJS.enc.Utf8.parse("site");
+	var decrypt = CryptoJS.AES.decrypt(word, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
+	return CryptoJS.enc.Utf8.stringify(decrypt).toString();
 }
 
 
