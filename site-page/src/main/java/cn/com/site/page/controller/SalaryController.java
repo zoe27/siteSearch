@@ -15,10 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import cn.com.site.page.dto.SalaryCoreInfo;
 import cn.com.site.page.dto.SalaryDto;
 import cn.com.site.page.security.Aes;
+import cn.com.site.page.util.AccessSourceLog;
+import cn.com.site.page.util.PcOrMobile;
 import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
@@ -103,6 +106,8 @@ public class SalaryController {
 													 @RequestParam(name = "begin", defaultValue = "0") Integer begin,
 													 @RequestParam(name = "limit", defaultValue = "10") Integer limit,
 													 @RequestParam(name = "query", defaultValue = "") String query){
+
+		log.info("recive a request, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
 		List<Salary> list = Lists.newArrayList();
 		int idx = begin * limit;
 		list = salaryJsonParse.selectByContion(query, idx, limit);
@@ -111,6 +116,16 @@ public class SalaryController {
 		pageBean.setSize(limit);
 		pageBean.setT(list);
 		return pageBean;
+	}
+
+	@RequestMapping("/")
+	public String index(HttpServletRequest request, HttpServletResponse response) {
+		AccessSourceLog.accessLog(request);
+		if (PcOrMobile.isMobile(request)) {
+			return "salary/index";
+		} else {
+			return "salary/index";
+		}
 	}
 
 }

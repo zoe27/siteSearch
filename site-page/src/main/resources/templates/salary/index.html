@@ -98,23 +98,6 @@
 
 
                         <div class="aui-job-list">
-                            <!--                <a href="javascript:;" class="aui-flex">-->
-                            <!--                    <div class="aui-flex-box">-->
-                            <!--                        <h2>web前端高级工程师开发</h2>-->
-                            <!--                        <p>北京 5-10年 本科</p>-->
-                            <!--                        <span>-->
-                            <!--                                <em>周末双休</em>-->
-                            <!--                                <em>五险一金</em>-->
-                            <!--                                <em>年底双薪</em>-->
-                            <!--                                <em>节日福利</em>-->
-                            <!--                            </span>-->
-                            <!--                        <p>北京AUI素材网网络科技有限公司</p>-->
-                            <!--                    </div>-->
-                            <!--                    <div class="aui-monthly">-->
-                            <!--                        <h3>5万-7万月</h3>-->
-                            <!--                        <p>10月25</p>-->
-                            <!--                    </div>-->
-                            <!--                </a>-->
                             <div class="test"></div>
                         </div>
 
@@ -151,11 +134,7 @@
                             </a>
                         </footer>
                     </section>
-<!--                    <div class="col-lg-8 col-lg-offset-2">-->
-<!--                        -->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+
         </div>
         <!-- /#page-content-wrapper -->
 
@@ -187,7 +166,13 @@
                 console.log('/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num)
                 $.ajax({
                     type: 'GET',
-                    url: '/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num,
+                    //url: '/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num,
+                    url: '/salary/salaryCondtion',
+                    data:{
+                        query: query,
+                        begin: pageStart,
+                        limit: num
+                    },
                     dataType: 'json',
                     success: function(data){
                         var result = setData(data.t);
@@ -257,8 +242,13 @@
                 if(e.keyCode==13){
                     $.ajax({
                         type: 'GET',
-                        url: '/salary/salaryCondtion?query='+query+'&amp;begin='+pageStart+'&amp;limit='+num,
+                        url: '/salary/salaryCondtion',
                         dataType: 'json',
+                        data:{
+                            query: query,
+                            begin: pageStart,
+                            limit: num
+                        },
                         success: function(data){
                             // var result = setData(data.t);
                             pageStart++;
