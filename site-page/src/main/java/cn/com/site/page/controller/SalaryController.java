@@ -75,20 +75,8 @@ public class SalaryController {
 	@ResponseBody
 	public String addSalaryInfo(@ModelAttribute SalaryDto salaryDto){
 		log.info("{}", salaryDto);
-		Salary salary = new Salary();
-		BeanUtils.copyProperties(salaryDto, salary);
-		salary.setBaseOfMonth(Float.parseFloat(salaryDto.getBaseOfMont()));
-		salary.setBounsComp(0f);//Float.parseFloat(salaryDto.getBaseComp()));
-		salary.setHireType(0);
-		salary.setStockComp(Integer.parseInt(salaryDto.getStockComp()));
-		salary.setTotalComp(Float.parseFloat(salaryDto.getTotalComp()));
-		salary.setYearInCome(Float.parseFloat(salaryDto.getYearInCome()));
-		salary.setYearOfExp(Float.parseFloat(salaryDto.getYearOfExp()));
-		SalaryCoreInfo salaryCoreInfo = new SalaryCoreInfo();
-		String salaryCoreInfoString = Aes.aesEncrypt(JSON.toJSONString(salaryCoreInfo));
-		salary.setCoreInfo(salaryCoreInfoString);
-		log.info("{}", salary);
-		salaryJsonParse.saveSalary(salary);
+
+		salaryJsonParse.saveSalary(salaryDto);
 		return "result";
 	}
 

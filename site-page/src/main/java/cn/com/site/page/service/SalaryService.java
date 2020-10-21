@@ -10,13 +10,14 @@
  */
 package cn.com.site.page.service;
 
+import cn.com.site.page.dto.SalaryDto;
 import cn.com.site.page.vo.Salary;
 
 import java.util.List;
 
 public interface SalaryService {
 
-    int saveSalary(Salary salary);
+    int saveSalary(SalaryDto salaryDto);
 
     List<Salary> selectByContion(String condition, Integer begin, Integer limit);
 

@@ -120,6 +120,7 @@
 					<include>*.properties</include>
 					<include>*.xml</include>
 					<include>Dockerfile</include>
+					<include>salary/*.json</include>
 				</includes>
 				<excludes>
 <!--					<exclude>**/*.json</exclude>-->

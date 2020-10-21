@@ -1,6 +1,7 @@
 package cn.com.site.page.service.impl;
 
 import cn.com.site.page.dto.SalaryCoreInfo;
+import cn.com.site.page.dto.SalaryDto;
 import cn.com.site.page.mapper.SalaryMapper;
 import cn.com.site.page.security.Aes;
 import cn.com.site.page.vo.Salary;
@@ -20,6 +21,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -135,11 +137,25 @@ public class SalaryJsonParse implements SalaryService{
 
 
 	@Override
-	public int saveSalary(Salary salary) {
-		/*SalaryCoreInfo coreInfo = new SalaryCoreInfo(salary.getBounsComp(), salary.getBaseComp(), salary.getTotalComp(), salary.getBaseOfMonth(), salary.getStockComp());
-		String salaryCoreInfo = Aes.aesEncrypt(JSON.toJSONString(coreInfo));*/
-		salaryMapper.insert(salary);
-		return 0;
+	public int saveSalary(SalaryDto salaryDto) {
+
+		SalaryCoreInfo salaryCoreInfo = new SalaryCoreInfo();
+		salaryCoreInfo.setBaseComp(salaryDto.getBaseComp());
+		salaryCoreInfo.setBaseOfMont(salaryDto.getBaseOfMont());
+		salaryCoreInfo.setBounsComp(salaryDto.getBounsComp());
+		salaryCoreInfo.setStockComp(salaryDto.getStockComp());
+		salaryCoreInfo.setTotalComp(salaryDto.getTotalComp());
+		String salaryCoreInfoString = Aes.aesEncrypt(JSON.toJSONString(salaryCoreInfo));
+
+		Salary salary = new Salary(salaryDto.getCompany(), salaryDto.getTitle(),
+				salaryDto.getLevel(), Float.parseFloat(salaryDto.getYearOfExp()),
+				Float.parseFloat(StringUtils.isEmpty(salaryDto.getYearInCome()) ? "0" : salaryDto.getYearInCome()),
+				0f,0f,0f,0f,0,
+				salaryDto.getDegree(), salaryDto.getLocation(),
+				"社招".equals(salaryDto.getHireType()) ? 0 : 1, salaryDto.getHours(),
+				salaryDto.getCollege(), salaryCoreInfoString);
+		log.info("{}", salary);
+		return salaryMapper.insert(salary);
 	}
 
 	@Override
