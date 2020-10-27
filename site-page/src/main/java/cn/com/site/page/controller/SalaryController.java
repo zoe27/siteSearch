@@ -116,4 +116,14 @@ public class SalaryController {
 		}
 	}
 
+	@RequestMapping("/level")
+	public String levelIdx(HttpServletRequest request, HttpServletResponse response) {
+		AccessSourceLog.accessLog(request);
+		if (PcOrMobile.isMobile(request)) {
+			return "salary/level";
+		} else {
+			return "salary/level";
+		}
+	}
+
 }
