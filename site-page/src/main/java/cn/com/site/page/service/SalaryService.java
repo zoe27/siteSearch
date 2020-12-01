@@ -21,5 +21,8 @@ public interface SalaryService {
 
     List<Salary> selectByContion(String condition, Integer begin, Integer limit);
 
+    List<Salary> getAll();
+
+    List<String> getCompay();
 }
 

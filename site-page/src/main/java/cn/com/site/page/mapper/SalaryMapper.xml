@@ -44,13 +44,19 @@
   <select id="selectByCondition" resultMap="BaseResultMap" >
     select id, company, title, level, year_of_exp, year_in_come, bouns_comp, base_comp,
     total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
-    from salary where company like CONCAT('%',#{condition},'%') or title like CONCAT('%',#{condition},'%') order by id desc
+    from salary where (company like CONCAT('%',#{condition},'%') or title like CONCAT('%',#{condition},'%'))
+    and level not like '校招%' and degree != ''
     limit #{begin}, #{limit}
   </select>
 
   <select id="selectAllPage" resultMap="BaseResultMap" >
     select id, company, title, level, year_of_exp, year_in_come, bouns_comp, base_comp,
     total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
-    from salary order by id desc  limit #{begin}, #{limit}
+    from salary where level not like '校招%' and degree != '' limit #{begin}, #{limit}
+  </select>
+
+  <select id="getCompany" resultType="java.lang.String" >
+    select company
+    from salary where level not like '校招%' and degree != '' group by company
   </select>
 </mapper>

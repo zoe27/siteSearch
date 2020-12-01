@@ -84,6 +84,42 @@ function decryptTest(word) {
 	return CryptoJS.enc.Utf8.stringify(decrypt).toString();
 }
 
+function levelCompare(company) {
+	var div = $("#level");
+	$.get("/salary/level?company="+company ,function (data){
+		addLevel(div, data);
+	});
+}
+
+function addLevel(div, data) {
+
+	var divLevel = $('<div style="float:left; width:33%"></div>')
+
+	var divTable = $('<div class="table-div" style="height: '+data.tableHeight+'px; margin-top: 3px;"></div>')
+	var table = $('<table class="levelTable" style="height: 100%; width: 100%; border-collapse: collapse;"></table>')
+
+	var tybody = $('<tbody></tbody>')
+
+	$(data.o).each(function (index, item){
+		if (item.high == 0 || item.height.startsWith("-")) {return}
+		var contentTr = $('<tr class="position-row"' +
+			'style="height: '+item.height+'; max-height: '+item.height+'; text-align: center; color: rgb(51, 51, 51); position: relative; background: rgba('+item.color+');">' +
+			'<td><span class="span-f" style="font-size:1.1em;display:inline-block;">'+item.level+'</span>' +
+			// '<br/>' +
+			'<span' +
+			'class="span-f" style="font-size:0.7em;display:inline-block;">'+item.median+'</span><br/><a' +
+			'style="display:block" href="/company/Microsoft/salaries/Software-Engineer/SDE/"></a></td>' +
+			'</tr>')
+		tybody.append(contentTr)
+	});
+
+	table.append(tybody);
+	divTable.append(table);
+	divLevel.append(divTable);
+	div.append(divLevel);
+
+}
+
 
 
 

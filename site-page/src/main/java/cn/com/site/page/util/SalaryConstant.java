@@ -52,4 +52,9 @@ public class SalaryConstant {
 	public static String TOTAL_COMP = "totalComp";
 	public static String BASE_MONTH_COMP_MULTI = "baseMonthCompMulti";
 
+
+	public static String POSITION = "position";
+
+	public static final int HEIGHT = 800;
+
 }

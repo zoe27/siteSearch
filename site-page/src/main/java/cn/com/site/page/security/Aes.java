@@ -169,10 +169,11 @@ public class Aes {
         content = JSON.toJSONString(coreInfo);
         System.out.println("加密前：" + content);
         System.out.println("加密密钥和解密密钥：" + KEY);
-        String encrypt = aesEncrypt(content, KEY);
-        encrypt = aesEncrypt(content);
+//        String encrypt = aesEncrypt(content, KEY);
+        String encrypt = aesEncrypt(content);
         System.out.println("加密后：" + encrypt);
-        String decrypt = aesDecrypt(encrypt, KEY);
+//        String decrypt = aesDecrypt(encrypt, KEY);
+        String decrypt = aesDecrypt(encrypt);
         System.out.println("解密后：" + decrypt);
     }
 }
