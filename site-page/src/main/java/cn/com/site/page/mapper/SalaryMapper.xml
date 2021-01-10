@@ -18,6 +18,8 @@
     <result column="hire_type" property="hireType" jdbcType="INTEGER" />
     <result column="hours" property="hours" jdbcType="VARCHAR" />
     <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
     <result column="core_info" property="coreInfo" jdbcType="LONGVARCHAR" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.site.page.vo.Salary" >
@@ -26,32 +28,35 @@
       bouns_comp, base_comp, total_comp, 
       base_of_month, stock_comp, degree, 
       location, hire_type, hours, 
-      college, core_info)
+      college, add_time, md5, 
+      core_info)
     values (#{id,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{level,jdbcType=VARCHAR}, #{yearOfExp,jdbcType=REAL}, #{yearInCome,jdbcType=REAL}, 
       #{bounsComp,jdbcType=REAL}, #{baseComp,jdbcType=REAL}, #{totalComp,jdbcType=REAL}, 
       #{baseOfMonth,jdbcType=REAL}, #{stockComp,jdbcType=INTEGER}, #{degree,jdbcType=VARCHAR}, 
       #{location,jdbcType=VARCHAR}, #{hireType,jdbcType=INTEGER}, #{hours,jdbcType=VARCHAR}, 
-      #{college,jdbcType=VARCHAR}, #{coreInfo,jdbcType=LONGVARCHAR})
+      #{college,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{md5,jdbcType=VARCHAR}, 
+      #{coreInfo,jdbcType=LONGVARCHAR})
   </insert>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, company, title, level, year_of_exp, year_in_come, bouns_comp, base_comp, 
     total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, 
-    core_info
+    add_time, md5, core_info
     from salary
   </select>
 
+
   <select id="selectByCondition" resultMap="BaseResultMap" >
     select id, company, title, level, year_of_exp, year_in_come, bouns_comp, base_comp,
-    total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
+           total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
     from salary where (company like CONCAT('%',#{condition},'%') or title like CONCAT('%',#{condition},'%'))
-    and level not like '校招%' and degree != ''
+                  and level not like '校招%' and degree != ''
     limit #{begin}, #{limit}
   </select>
 
   <select id="selectAllPage" resultMap="BaseResultMap" >
     select id, company, title, level, year_of_exp, year_in_come, bouns_comp, base_comp,
-    total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
+           total_comp, base_of_month, stock_comp, degree, location, hire_type, hours, college, core_info
     from salary where level not like '校招%' and degree != '' limit #{begin}, #{limit}
   </select>
 
@@ -59,4 +64,5 @@
     select company
     from salary where level not like '校招%' and degree != '' group by company
   </select>
+
 </mapper>

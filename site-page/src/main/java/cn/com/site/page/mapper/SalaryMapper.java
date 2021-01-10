@@ -16,8 +16,4 @@ public interface SalaryMapper {
     List<Salary> selectByCondition(@Param("condition") String condition, @Param("begin") Integer begin, @Param("limit") Integer limit);
 
     List<Object> getCompany();
-
-
-
-
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.site.page.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="cn.com.site.page.vo.Comment">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="salary_id" jdbcType="INTEGER" property="salaryId" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.site.page.vo.Comment">
+    insert into comment (id, salary_id, comment, 
+      user_name, ip, add_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{salaryId,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, salary_id, comment, user_name, ip, add_time
+    from comment
+  </select>
+
+  <select id="selectAllBySalaryId" resultMap="BaseResultMap">
+    select id, salary_id, comment, user_name, ip, add_time where salary_id = #{salaryId}
+    from comment
+  </select>
+</mapper>

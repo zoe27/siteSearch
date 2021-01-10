@@ -1,6 +1,7 @@
 package cn.com.site.page.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Salary implements Serializable {
     private Integer id;
@@ -34,6 +35,10 @@ public class Salary implements Serializable {
     private String hours;
 
     private String college;
+
+    private Date addTime;
+
+    private String md5;
 
     private String coreInfo;
 
@@ -167,6 +172,22 @@ public class Salary implements Serializable {
         this.college = college == null ? null : college.trim();
     }
 
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5 == null ? null : md5.trim();
+    }
+
     public String getCoreInfo() {
         return coreInfo;
     }
@@ -203,6 +224,8 @@ public class Salary implements Serializable {
             && (this.getHireType() == null ? other.getHireType() == null : this.getHireType().equals(other.getHireType()))
             && (this.getHours() == null ? other.getHours() == null : this.getHours().equals(other.getHours()))
             && (this.getCollege() == null ? other.getCollege() == null : this.getCollege().equals(other.getCollege()))
+            && (this.getAddTime() == null ? other.getAddTime() == null : this.getAddTime().equals(other.getAddTime()))
+            && (this.getMd5() == null ? other.getMd5() == null : this.getMd5().equals(other.getMd5()))
             && (this.getCoreInfo() == null ? other.getCoreInfo() == null : this.getCoreInfo().equals(other.getCoreInfo()));
     }
 
@@ -226,6 +249,8 @@ public class Salary implements Serializable {
         result = prime * result + ((getHireType() == null) ? 0 : getHireType().hashCode());
         result = prime * result + ((getHours() == null) ? 0 : getHours().hashCode());
         result = prime * result + ((getCollege() == null) ? 0 : getCollege().hashCode());
+        result = prime * result + ((getAddTime() == null) ? 0 : getAddTime().hashCode());
+        result = prime * result + ((getMd5() == null) ? 0 : getMd5().hashCode());
         result = prime * result + ((getCoreInfo() == null) ? 0 : getCoreInfo().hashCode());
         return result;
     }
@@ -252,13 +277,20 @@ public class Salary implements Serializable {
         sb.append(", hireType=").append(hireType);
         sb.append(", hours=").append(hours);
         sb.append(", college=").append(college);
+        sb.append(", addTime=").append(addTime);
+        sb.append(", md5=").append(md5);
         sb.append(", coreInfo=").append(coreInfo);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
 
-    public Salary( String company, String title, String level, Float yearOfExp, Float yearInCome, Float bounsComp, Float baseComp, Float totalComp, Float baseOfMonth, Integer stockComp, String degree, String location, Integer hireType, String hours, String college, String coreInfo) {
+    public Salary( String company, String title, String level,
+                   Float yearOfExp, Float yearInCome, Float bounsComp,
+                   Float baseComp, Float totalComp, Float baseOfMonth,
+                   Integer stockComp, String degree, String location,
+                   Integer hireType, String hours, String college, String coreInfo,
+                   String md5) {
         this.company = company;
         this.title = title;
         this.level = level;
@@ -275,6 +307,7 @@ public class Salary implements Serializable {
         this.hours = hours;
         this.college = college;
         this.coreInfo = coreInfo;
+        this.md5 = md5;
     }
 
     public Salary() {

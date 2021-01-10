@@ -18,11 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.com.site.page.dto.*;
+import cn.com.site.page.mapper.EvaluateCompMapper;
 import cn.com.site.page.security.Aes;
-import cn.com.site.page.util.AccessSourceLog;
-import cn.com.site.page.util.ColorUtil;
-import cn.com.site.page.util.PcOrMobile;
-import cn.com.site.page.util.SalaryConstant;
+import cn.com.site.page.service.CommentService;
+import cn.com.site.page.service.EvaluateLevelMappingService;
+import cn.com.site.page.util.*;
+import cn.com.site.page.vo.Comment;
+import cn.com.site.page.vo.EvaluateComp;
 import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -46,6 +48,12 @@ public class SalaryController {
 	@Autowired
 	private SalaryJsonParse salaryJsonParse;
 
+	@Autowired
+	private CommentService commentService;
+
+	@Autowired
+	private EvaluateLevelMappingService evaluateLevelMappingService;
+
 	@RequestMapping("/getSalary")
 	@ResponseBody
 	public PageBean<List<Map<String, String>>> getSalary(HttpServletRequest request,
@@ -67,12 +75,22 @@ public class SalaryController {
 		return "salary/index";
 	}
 
+	/**
+	 * redirect to the page
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/salary/addIdx")
 	public String addSalary(Model model){
 		model.addAttribute("salaryDto", new SalaryDto());
 		return "salary/add";
 	}
 
+	/**
+	 * add salary
+	 * @param salaryDto
+	 * @return
+	 */
 	@PostMapping("salary/add")
 	@ResponseBody
 	public String addSalaryInfo(@ModelAttribute SalaryDto salaryDto){
@@ -82,6 +100,11 @@ public class SalaryController {
 		return "result";
 	}
 
+	/**
+	 * translate json to mysql db
+	 * @param salaryDto
+	 * @return
+	 */
 	@RequestMapping("salary/translate")
 	@ResponseBody
 	public String translateSalary(@ModelAttribute SalaryDto salaryDto){
@@ -91,6 +114,14 @@ public class SalaryController {
 	}
 
 
+	/**
+	 * search salary in different conditions
+	 * @param request
+	 * @param begin
+	 * @param limit
+	 * @param query
+	 * @return
+	 */
 	@RequestMapping("salary/salaryCondtion")
 	@ResponseBody
 	public PageBean<List<Salary>> getSalaryCondition(HttpServletRequest request,
@@ -109,6 +140,12 @@ public class SalaryController {
 		return pageBean;
 	}
 
+	/**
+	 * redirect to salary index page
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 		AccessSourceLog.accessLog(request);
@@ -119,6 +156,12 @@ public class SalaryController {
 		}
 	}
 
+	/**
+	 * redirect to level page
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/level")
 	public String levelIdx(HttpServletRequest request, HttpServletResponse response) {
 		AccessSourceLog.accessLog(request);
@@ -129,6 +172,10 @@ public class SalaryController {
 		}
 	}
 
+	/**
+	 * get all companies
+	 * @return
+	 */
 	@RequestMapping("/getCompany")
 	@ResponseBody
 	public List<String> getCompany(){
@@ -137,6 +184,7 @@ public class SalaryController {
 
 	/**
 	 * deprecated
+	 * get all level with corresponding salary
 	 * @param company
 	 * @return
 	 */
@@ -210,6 +258,98 @@ public class SalaryController {
 		levelDto.setGap((int) gapCompany);
 		levelDto.setColor(String.valueOf((maxSalary - minSalary) ));
 		return levelDto;
+	}
+
+	/**
+	 * add comment for some salary
+	 * @return
+	 */
+	@PostMapping("/salary/add/comment")
+	@ResponseBody
+	public ResponseSalary addComment(@RequestParam("comment") Comment comment,
+							HttpServletRequest request){
+		String ip = IpUtils.getIpAdrress(request);
+		comment.setIp(ip);
+		Comment commentRes = commentService.addComment(comment);
+		ResponseSalary responseSalary = new ResponseSalary();
+		if (null == commentRes){
+			responseSalary.setStatus(503);
+			responseSalary.setMsg("add error");
+			return responseSalary;
+		}
+		responseSalary.setT(commentRes);
+		return responseSalary;
+	}
+
+	/**
+	 * get salary comments
+	 * @param salaryId
+	 * @return
+	 */
+	@RequestMapping("/salary/getComments")
+	@ResponseBody
+	public ResponseSalary getComments(@RequestParam("salaryId") String salaryId){
+		ResponseSalary responseSalary = new ResponseSalary();
+		try {
+			Integer salaryIdReal = Integer.parseInt(salaryId);
+			List<Comment> list = commentService.getCommentBySalaryId(salaryIdReal);
+			responseSalary.setStatus(200);
+			responseSalary.setT(list);
+		} catch (Exception e) {
+			responseSalary.setStatus(500);
+			responseSalary.setMsg("salary id is error");
+		}
+		return responseSalary;
+	}
+
+	@PostMapping("/salary/addlevel")
+	@ResponseBody
+	public ResponseSalary addCompanyLevel(@RequestParam("levelInfo") EvaluateComp evaluateComp){
+		ResponseSalary responseSalary = new ResponseSalary();
+		evaluateComp = evaluateLevelMappingService.addEvaluateComp(evaluateComp);
+		if (evaluateComp == null){
+			responseSalary.setMsg("something is wrong");
+			responseSalary.setStatus(500);
+		}else{
+			responseSalary.setT(evaluateComp);
+			responseSalary.setStatus(200);
+		}
+		return responseSalary;
+
+	}
+
+	@RequestMapping("/salary/mappingLevel")
+	@ResponseBody
+	public ResponseSalary getLevelMapping(@RequestParam("companyName") String companyName,
+											  @RequestParam(name = "companyId", defaultValue = "0") String companyId){
+		List<EvaluateComp> list = Lists.newArrayList();
+		ResponseSalary responseSalary = new ResponseSalary();
+		try{
+			list = evaluateLevelMappingService.getEvaluateComp(companyName, Integer.parseInt(companyId));
+			responseSalary.setT(list);
+			responseSalary.setStatus(200);
+		}catch (Exception e){
+			responseSalary.setStatus(500);
+			responseSalary.setMsg("error");
+		}
+		return responseSalary;
+	}
+
+	@PostMapping("/salary/evaluatemappingLevel")
+	@ResponseBody
+	public ResponseSalary evaluateLevelMapping(@RequestParam("levelMapping") LevelMapping levelMapping){
+		List<LevelMapping> levelMappings = Lists.newArrayList();
+		ResponseSalary responseSalary = new ResponseSalary();
+		try {
+			// compare all company
+			levelMappings = evaluateLevelMappingService.evaluateLevel(levelMapping);
+			responseSalary.setT(levelMappings);
+			responseSalary.setStatus(200);
+		} catch (Exception e) {
+			responseSalary.setStatus(500);
+			responseSalary.setMsg("error");
+		}
+		return responseSalary;
 	}
 
 	private LevelSalaryDto transToResultStruct(String level, List v) {

@@ -4,6 +4,7 @@ import cn.com.site.page.dto.SalaryCoreInfo;
 import cn.com.site.page.dto.SalaryDto;
 import cn.com.site.page.mapper.SalaryMapper;
 import cn.com.site.page.security.Aes;
+import cn.com.site.page.util.Md5Util;
 import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -132,7 +133,7 @@ public class SalaryJsonParse implements SalaryService{
 		String salaryPath = "salary/salaryInfo.json";
 		String content = fileLoad.loadContent(salaryPath);
 		JSONArray array = JSON.parseArray(content);
-		array.forEach(e->{
+		array.forEach(e -> {
 			JSONObject obj = JSON.parseObject(e.toString());
 			String company = obj.getString(SalaryConstant.COMPANY);
 			String title = obj.getString(SalaryConstant.TITLE);
@@ -142,11 +143,11 @@ public class SalaryJsonParse implements SalaryService{
 			String bounsComp = obj.getString(SalaryConstant.BOUNS_COMP);
 			String baseComp = obj.getString(SalaryConstant.BASE_COMP);
 			String totalComp = obj.getString(SalaryConstant.TOTAL_COMP);
-			if (StringUtils.isEmpty(obj.getString(SalaryConstant.BASE_MONTH_COMP))){
+			if (StringUtils.isEmpty(obj.getString(SalaryConstant.BASE_MONTH_COMP))) {
 				String baseOfMonth = Float.parseFloat(baseComp) / 12 + "";
 				obj.put(SalaryConstant.BASE_MONTH_COMP, baseOfMonth);
 			}
-			String baseOfMonth = String.format("￥%.1fk",Float.parseFloat(obj.getString(SalaryConstant.BASE_MONTH_COMP))/1000);
+			String baseOfMonth = String.format("￥%.1fk", Float.parseFloat(obj.getString(SalaryConstant.BASE_MONTH_COMP)) / 1000);
 			String stockComp = obj.getString(SalaryConstant.STOCK_COMP);
 			String degree = obj.getString(SalaryConstant.DEGREE);
 			String location = obj.getString(SalaryConstant.LOCATION);
@@ -170,13 +171,17 @@ public class SalaryJsonParse implements SalaryService{
 		salaryCoreInfo.setTotalComp(salaryDto.getTotalComp());
 		String salaryCoreInfoString = Aes.aesEncrypt(JSON.toJSONString(salaryCoreInfo));
 
+		String md5Inpuf = String.format("%s%s%s%s%s%s%s%s", salaryDto.getCompany(), salaryDto.getTitle(), salaryDto.getLevel(),
+				salaryDto.getYearOfExp(),salaryDto.getDegree(),salaryDto.getLocation(),salaryDto.getCollege(), salaryCoreInfo);
+		String md5Info = Md5Util.MD51(md5Inpuf);
+
 		Salary salary = new Salary(salaryDto.getCompany(), salaryDto.getTitle(),
 				salaryDto.getLevel(), Float.parseFloat(salaryDto.getYearOfExp()),
 				Float.parseFloat(StringUtils.isEmpty(salaryDto.getYearInCome()) ? "0" : salaryDto.getYearInCome()),
 				0f,0f,0f,0f,0,
 				salaryDto.getDegree(), salaryDto.getLocation(),
 				"社招".equals(salaryDto.getHireType()) ? 0 : 1, salaryDto.getHours(),
-				salaryDto.getCollege(), salaryCoreInfoString);
+				salaryDto.getCollege(), salaryCoreInfoString, md5Info);
 		log.info("{}", salary);
 		return salaryMapper.insert(salary);
 	}
@@ -273,14 +278,23 @@ public class SalaryJsonParse implements SalaryService{
 							String yearOfExp, String yearInCome, String bounsComp,
 							String baseComp, String totalComp, String baseOfMonth,
 							String stockComp, String degree, String location, String hireType, String hours) {
-		SalaryCoreInfo coreInfo = new SalaryCoreInfo(bounsComp, baseComp, totalComp, baseOfMonth, stockComp);
-		String salaryCoreInfo = Aes.aesEncrypt(JSON.toJSONString(coreInfo));
+		try{
+			SalaryCoreInfo coreInfo = new SalaryCoreInfo(bounsComp, baseComp, totalComp, baseOfMonth, stockComp);
+			String salaryCoreInfo = Aes.aesEncrypt(JSON.toJSONString(coreInfo));
 
-		Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
-				Float.parseFloat(StringUtils.isEmpty(yearInCome) ? "0" : yearInCome),
-				0f, 0f, 0f, 0f, 0, degree, location,
-				"社招".equals(hireType) ? 0 : 1, hours, "", salaryCoreInfo);
-		salaryMapper.insert(salary);
+			String md5Inpuf = String.format("%s%s%s%s%s%s%s%s", company, title, level,
+					yearOfExp,degree,location,"", salaryCoreInfo);
+			String md5Info = Md5Util.MD51(md5Inpuf);
+
+			Salary salary = new Salary(company, title, level, Float.parseFloat(yearOfExp),
+					Float.parseFloat(StringUtils.isEmpty(yearInCome) ? "0" : yearInCome),
+					0f, 0f, 0f, 0f, 0, degree, location,
+					"社招".equals(hireType) ? 0 : 1, hours, "", salaryCoreInfo, md5Info);
+			salaryMapper.insert(salary);
+		}catch (Exception e){
+			log.error("add date error, {}", e.getMessage());
+		}
+
 	}
 
 	private String decodeUnicode(String key, String content) {
