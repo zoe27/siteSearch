@@ -16,5 +16,28 @@ CREATE TABLE `salary` (
   `hours` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Work hours , 985/996/007',
   `college` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Graduate college.  CUS',
   `core_info` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Core info of the record\n',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `md5` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Md5 of core info',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `md5_idx` (`md5`)
+) ENGINE=InnoDB AUTO_INCREMENT=30135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `salary_id` int(11) NOT NULL COMMENT 'Mapping to salary id ',
+  `comment` varchar(512) NOT NULL COMMENT 'Comment for each salary',
+  `user_name` varchar(128) NOT NULL COMMENT 'User name , may be it is :  xxx company employeer\n',
+  `ip` varchar(64) NOT NULL COMMENT 'Source IP',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Comment time ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4586 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `evaluate_comp` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Company id',
+  `company_name` varchar(256) NOT NULL DEFAULT '' COMMENT 'Company name',
+  `level_mapping` text NOT NULL COMMENT 'Level mapping info , maybe it is a json string or html string',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT 'If status is 0, not to show',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
