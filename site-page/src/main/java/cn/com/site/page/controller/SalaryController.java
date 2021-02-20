@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.com.site.page.dto.*;
-import cn.com.site.page.mapper.EvaluateCompMapper;
 import cn.com.site.page.security.Aes;
 import cn.com.site.page.service.CommentService;
 import cn.com.site.page.service.EvaluateLevelMappingService;
@@ -27,6 +26,7 @@ import cn.com.site.page.vo.Comment;
 import cn.com.site.page.vo.EvaluateComp;
 import cn.com.site.page.vo.Salary;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.*;
 import cn.com.site.page.service.impl.SalaryJsonParse;
 
 @Controller
+@CrossOrigin
 public class SalaryController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -58,7 +59,7 @@ public class SalaryController {
 	@ResponseBody
 	public PageBean<List<Map<String, String>>> getSalary(HttpServletRequest request,
 			@RequestParam(name = "begin", defaultValue = "0") Integer begin,
-			@RequestParam(name = "limit", defaultValue = "10") Integer limit) {
+			@RequestParam(name = "limit", defaultValue = "10000") Integer limit) {
 		List<Map<String, String>> list = salaryJsonParse.parseSalary();
 		Collections.reverse(list);
 		int idx = (begin + 1) * limit;
@@ -93,7 +94,7 @@ public class SalaryController {
 	 */
 	@PostMapping("salary/add")
 	@ResponseBody
-	public String addSalaryInfo(@ModelAttribute SalaryDto salaryDto){
+	public String addSalaryInfo(@RequestBody SalaryDto salaryDto){
 		log.info("{}", salaryDto);
 
 		salaryJsonParse.saveSalary(salaryDto);
@@ -126,7 +127,7 @@ public class SalaryController {
 	@ResponseBody
 	public PageBean<List<Salary>> getSalaryCondition(HttpServletRequest request,
 													 @RequestParam(name = "begin", defaultValue = "0") Integer begin,
-													 @RequestParam(name = "limit", defaultValue = "10") Integer limit,
+													 @RequestParam(name = "limit", defaultValue = "100000") Integer limit,
 													 @RequestParam(name = "query", defaultValue = "") String query){
 
 		log.info("recive a request, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
@@ -179,7 +180,7 @@ public class SalaryController {
 	@RequestMapping("/getCompany")
 	@ResponseBody
 	public List<String> getCompany(){
-		return salaryJsonParse.getCompay();
+		return salaryJsonParse.getCompay();//.subList(0,30);
 	}
 
 	/**
@@ -304,29 +305,74 @@ public class SalaryController {
 
 	@PostMapping("/salary/addlevel")
 	@ResponseBody
-	public ResponseSalary addCompanyLevel(@RequestParam("levelInfo") EvaluateComp evaluateComp){
+	public ResponseSalary addCompanyLevel(@RequestBody List<String> rankList){
 		ResponseSalary responseSalary = new ResponseSalary();
-		evaluateComp = evaluateLevelMappingService.addEvaluateComp(evaluateComp);
+		try{
+			EvaluateComp evaluateComp = new EvaluateComp();
+			String companyName = JSON.parseObject(JSON.parseArray(rankList.get(0)).getString(0)).getString("name");
+			// 0 : level info
+			// 1 : height info
+			String content = String.format("%s$$%s", rankList.get(0), rankList.get(1));
+
+			evaluateComp.setCompanyName(companyName);
+			evaluateComp.setLevelMapping(content);
+			evaluateComp.setCompanyId(0);
+			evaluateLevelMappingService.addEvaluateComp(evaluateComp);
+			responseSalary.setT(evaluateComp);
+			responseSalary.setStatus(200);
+		}catch (Exception e){
+			responseSalary.setMsg("something is wrong");
+			responseSalary.setStatus(500);
+		}
+		/*evaluateComp = evaluateLevelMappingService.addEvaluateComp(evaluateComp);
 		if (evaluateComp == null){
 			responseSalary.setMsg("something is wrong");
 			responseSalary.setStatus(500);
 		}else{
 			responseSalary.setT(evaluateComp);
 			responseSalary.setStatus(200);
-		}
+		}*/
+		log.info("{}", rankList);
 		return responseSalary;
 
 	}
 
 	@RequestMapping("/salary/mappingLevel")
 	@ResponseBody
-	public ResponseSalary getLevelMapping(@RequestParam("companyName") String companyName,
+	public ResponseSalary getLevelMapping(@RequestParam(value = "companyName" , defaultValue = "") String companyName,
 											  @RequestParam(name = "companyId", defaultValue = "0") String companyId){
 		List<EvaluateComp> list = Lists.newArrayList();
 		ResponseSalary responseSalary = new ResponseSalary();
+		String dataPre = "contrast_data";
+		Map<String, Object> map = new HashMap<>();
 		try{
 			list = evaluateLevelMappingService.getEvaluateComp(companyName, Integer.parseInt(companyId));
-			responseSalary.setT(list);
+			for (int i = 0; i < list.size(); i++) {
+				EvaluateComp evaluateComp = list.get(i);
+				String companyInfoKey = String.format("%s%d", dataPre, i+1);
+				Map<String, String> singleCompany = new HashMap<>();
+				String[] content = evaluateComp.getLevelMapping().split("\\$\\$");
+				String levelInfos = content[0];
+				String heightInfo = content[1];
+				singleCompany.put("companyName", evaluateComp.getCompanyName());
+				/**
+				 * 需要把公司名称去掉
+				 */
+				// '[{"companyName":"","name":"百度"},{"level":"T3","extends":"","salaryRange":"20W-30W"},
+				// {"level":"T4","extends":"","salaryRange":"25W-40W"},{"level":"T5","extends":"","salaryRange":"30W-50W"},
+				// {"level":"T6","extends":"","salaryRange":"40W-60W"},{"level":"","extends":"","salaryRange":""},
+				// {"level":"","extends":"","salaryRange":""}]'
+
+				JSONArray levelInfoJson = JSON.parseArray(levelInfos);
+				JSONArray heightInfoJson = JSON.parseArray(heightInfo);
+				levelInfos = JSON.toJSONString(levelInfoJson.stream().filter(e ->StringUtils.isNotEmpty(JSON.parseObject(e.toString()).getString("level"))).collect(Collectors.toList()));
+				heightInfo = JSON.toJSONString(heightInfoJson.stream().filter(e -> StringUtils.isNotEmpty(JSON.parseObject(e.toString()).getString("height"))).collect(Collectors.toList()));
+				// levelInfos = String.format("%s%s", "[", levelInfos.substring(levelInfos.indexOf("},{") + 2, levelInfos.length()));
+				singleCompany.put("data", levelInfos);
+				singleCompany.put("height", heightInfo);
+				map.put(companyInfoKey, singleCompany);
+			}
+			responseSalary.setT(map);
 			responseSalary.setStatus(200);
 		}catch (Exception e){
 			responseSalary.setStatus(500);

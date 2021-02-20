@@ -1,6 +1,8 @@
 package cn.com.site.page.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -21,20 +23,35 @@ public class SalaryDto {
 				+ "]";
 	}
 
+	@JsonProperty(value = "company")
 	private String company;
+    @JsonProperty(value = "title")
     private String title;
+    @JsonProperty(value = "level")
     private String level;
+    @JsonProperty(value = "yearOfExp")
     private String yearOfExp;
+    @JsonProperty(value = "yearInCome")
     private String yearInCome;
+    @JsonProperty(value = "bounsComp")
     private String bounsComp;
+    @JsonProperty(value = "baseComp")
     private String baseComp;
+    @JsonProperty(value = "totalComp")
     private String totalComp;
+    @JsonProperty(value = "baseOfMont")
     private String baseOfMont;
+    @JsonProperty(value = "stockComp")
     private String stockComp;
+    @JsonProperty(value = "degree")
     private String degree;
+    @JsonProperty(value = "location")
     private String location;
+    @JsonProperty(value = "hireType")
     private String hireType;
+    @JsonProperty(value = "hours")
     private String hours;
+    @JsonProperty(value = "college")
     private String college;
 
     public String getCompany() {

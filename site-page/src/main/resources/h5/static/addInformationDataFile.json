@@ -1,0 +1,71 @@
+{
+    //发送过去的数据
+	"add": {
+        "data": [{
+		  "educationType": "硕士",
+		  "graduateSchool": "北京大学",
+		  "totalWorkingYears": 0,
+		  "positionName": "软件架构师",
+		  "grade": "T7",
+		  "workingAge": 0,
+		  "company": "腾讯",
+		  "wages": "20K",
+		  "yearEnd": "10K",
+		  "shares": "0.01%",
+		  "annualSalary": "80K",
+		  "applicationSelection": "-模式二",
+		  "location": "北京",
+		  "agreement": true
+		}]
+    },
+	//【input为选择内容时】要么1.按照下列格式写好数据-前端接收渲染。要么2.直接写在page JS里面。（数据个数自行添加）
+	"format_options": {
+		// 学历
+		"educationTypeList": [
+			{
+				"value": "本科",
+				"label": "本科"
+			},
+			{
+				"value": "硕士",
+				"label": "硕士"
+			},
+			{
+				"value": "博士",
+				"label": "博士"
+			}
+		],
+		// 毕业学校
+		"graduateSchoolList": [
+			{
+				"value": "清华大学",
+				"label": "清华大学"
+			},
+			{
+				"value": "北京大学",
+				"label": "北京大学"
+			},
+			{
+				"value": "复旦大学",
+				"label": "复旦大学"
+			}
+		],
+		// 应聘模式
+		"applicationSelectionList": [
+			{
+				"value": "模式一",
+				"label": "模式一"
+			},
+			{
+				"value": "模式二",
+				"label": "模式二"
+			},
+			{
+				"value": "模式三",
+				"label": "模式三"
+			}
+		]
+	}
+	
+}
+ 

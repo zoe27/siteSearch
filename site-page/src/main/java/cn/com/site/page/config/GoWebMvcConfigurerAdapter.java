@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -48,12 +49,25 @@ public class GoWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         log.info("customer img path is {}", customImgPath);
         //配置静态资源处理
         registry.addResourceHandler("/**")
-                .addResourceLocations("resources/", "static/", "public/",
+                .addResourceLocations("resources/", "static/", "public/", "h5/",
                         "META-INF/resources/")
-                .addResourceLocations("classpath:resources/", "classpath:static/",
+                .addResourceLocations("classpath:resources/", "classpath:static/","classpath:h5/",
                         "classpath:public/", "classpath:META-INF/resources/")
                 .addResourceLocations(imageParentPath)
                 .addResourceLocations(customImgPath);
+    }
+
+    /**
+     * set cross region
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedHeaders("*")
+                .allowedOrigins("*")
+                .allowedMethods("*");
     }
 }
 

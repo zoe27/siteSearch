@@ -1,0 +1,182 @@
+{
+	"contrast_data1": {
+		"companyName": "公司一",
+		"data": [{
+			"level": "T1",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T2",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T3",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T4",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T5",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T6",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T7",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T8",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T9",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T10",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T11",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T12",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T13",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T14",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T15",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T16",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T17",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T18",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T19",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T20",
+			"extends": "低级职位",
+			"salaryRange": "10W - 20W"
+		}]
+	},
+	"contrast_data2": {
+		"companyName": "公司二",
+		"data": [{
+			"level": "T1",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T2",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T3",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T4",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T5",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T6",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T7",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T8",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T9",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T10",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T11",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T12",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T13",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T14",
+			"extends": "中级职位",
+			"salaryRange": "10W - 20W"
+		}]
+	},
+	"contrast_data3": {
+		"companyName": "公司三",
+		"data": [{
+			"level": "T1",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T2",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T3",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T4",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T5",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T6",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T7",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		},{
+			"level": "T8",
+			"extends": "高级职位",
+			"salaryRange": "10W - 20W"
+		}]
+	}
+}

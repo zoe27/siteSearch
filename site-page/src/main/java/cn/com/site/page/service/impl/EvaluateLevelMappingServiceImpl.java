@@ -40,7 +40,7 @@ public class EvaluateLevelMappingServiceImpl implements EvaluateLevelMappingServ
 
     @Override
     public List<EvaluateComp> getEvaluateComp(String companyName, Integer companyId) {
-        List<EvaluateComp> list = evaluateCompMapper.selectByCompany(companyName, companyId);
+        List<EvaluateComp> list = evaluateCompMapper.selectAll();//.selectByCompany(companyName, companyId);
         return list;
     }
 

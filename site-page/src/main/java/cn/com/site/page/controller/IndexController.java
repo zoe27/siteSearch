@@ -32,7 +32,7 @@ public class IndexController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/index")
+    //@RequestMapping("/index")
     public String toIndex(HttpServletRequest request, HttpServletResponse response) {
         // SearchResponse response =
         // esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),"图片");
