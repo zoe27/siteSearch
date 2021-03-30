@@ -19,6 +19,8 @@ public class PageBean<T> {
 	private int size = 10;
 	
 	private int begin;
+
+	private int total;
 	
 	private T t;
 
@@ -45,7 +47,13 @@ public class PageBean<T> {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	
 
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
 }
 

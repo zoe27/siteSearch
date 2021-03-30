@@ -10,6 +10,7 @@
  */
 package cn.com.site.page.controller;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -127,16 +128,20 @@ public class SalaryController {
 	@ResponseBody
 	public PageBean<List<Salary>> getSalaryCondition(HttpServletRequest request,
 													 @RequestParam(name = "begin", defaultValue = "0") Integer begin,
-													 @RequestParam(name = "limit", defaultValue = "100000") Integer limit,
+													 @RequestParam(name = "limit", defaultValue = "100") Integer limit,
 													 @RequestParam(name = "query", defaultValue = "") String query){
 
 		log.info("recive a request, params is : query = {}, begin = {}, limit = {}", query, begin, limit);
 		List<Salary> list = Lists.newArrayList();
 		int idx = begin * limit;
 		list = salaryJsonParse.selectByContion(query, idx, limit);
+		int total = 0;
+		List listCnt = salaryJsonParse.selectByContion(query, 0, Integer.MAX_VALUE);
+		total = listCnt.size();
 		PageBean<List<Salary>> pageBean = new PageBean<>();
 		pageBean.setBegin(begin);
 		pageBean.setSize(limit);
+		pageBean.setTotal(total);
 		pageBean.setT(list);
 		return pageBean;
 	}
@@ -148,13 +153,15 @@ public class SalaryController {
 	 * @return
 	 */
 	@RequestMapping("/")
-	public String index(HttpServletRequest request, HttpServletResponse response) {
+	public void index(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AccessSourceLog.accessLog(request);
+		response.sendRedirect("index.html");
+		/*AccessSourceLog.accessLog(request);
 		if (PcOrMobile.isMobile(request)) {
 			return "salary/index";
 		} else {
 			return "salary/index";
-		}
+		}*/
 	}
 
 	/**
