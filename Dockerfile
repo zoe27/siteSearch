@@ -6,7 +6,7 @@ MAINTAINER zoe
 #COPY site-page /build/
 #WORKDIR /build/
 #RUN ls -R /build/
-WORKDIR ./
+WORKDIR /drone/src
 RUN ls -R ./
 RUN mvn clean -Dmaven.test.skip=true install -f pom.xml
 FROM java:8
