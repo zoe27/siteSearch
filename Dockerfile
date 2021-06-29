@@ -1,7 +1,7 @@
 FROM maven:3-jdk-8 AS MAVEN_BUILD
 MAINTAINER zoe
 
-COPY pom.xml site-es-v1 site-page /build/
+#COPY pom.xml site-es-v1 site-page /build/
 #COPY site-es-v1/* /build/
 #COPY site-page/* /build/
 WORKDIR /build/
