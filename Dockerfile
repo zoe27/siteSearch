@@ -5,7 +5,7 @@ MAINTAINER zoe
 #COPY site-es-v1 /build/
 #COPY site-page /build/
 #WORKDIR /build/
-RUN ls -R /build/
+#RUN ls -R /build/
 WORKDIR ./
 RUN ls -R ./
 RUN mvn clean -Dmaven.test.skip=true install -f pom.xml
