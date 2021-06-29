@@ -10,7 +10,7 @@ volumes:
 
 steps:
   - name: build
-      echo "hello world"
+    echo "hello world"
 
 #  - name: publish
 #    image: plugins/docker
