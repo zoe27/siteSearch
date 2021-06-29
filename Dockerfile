@@ -7,7 +7,7 @@ MAINTAINER zoe
 #WORKDIR /build/
 #RUN ls -R /build/
 WORKDIR /drone/src
-RUN ls -R ./
+RUN ls
 RUN mvn clean -Dmaven.test.skip=true install -f pom.xml
 FROM java:8
 COPY --from=MAVEN_BUILD /build/target/*.jar ./site.jar
