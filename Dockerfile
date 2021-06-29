@@ -1,9 +1,9 @@
 FROM maven:3-jdk-8 AS MAVEN_BUILD
 MAINTAINER zoe
 
-COPY pom.xml /build/
-COPY site-es-v1/* /build/
-COPY site-page/* /build/
+COPY pom.xml site-es-v1 site-page /build/
+#COPY site-es-v1/* /build/
+#COPY site-page/* /build/
 WORKDIR /build/
 RUN ls -R /build/
 RUN mvn clean -Dmaven.test.skip=true install -f pom.xml
