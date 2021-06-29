@@ -17,7 +17,6 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 
-import cn.com.site.page.dto.SalaryCoreInfo;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.binary.Base64;
 
@@ -165,8 +164,7 @@ public class Aes {
      */
     public static void main(String[] args) throws Exception {
         String content = "123";
-        SalaryCoreInfo coreInfo = new SalaryCoreInfo("111.09", "999.80", "89878.0", "98.9", "999");
-        content = JSON.toJSONString(coreInfo);
+        content = JSON.toJSONString(content);
         System.out.println("加密前：" + content);
         System.out.println("加密密钥和解密密钥：" + KEY);
 //        String encrypt = aesEncrypt(content, KEY);

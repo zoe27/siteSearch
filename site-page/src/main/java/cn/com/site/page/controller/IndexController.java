@@ -60,7 +60,7 @@ public class IndexController {
         return "search";
     }
 
-    /*@RequestMapping("/")
+    @RequestMapping("/")
     public String index(HttpServletRequest request, HttpServletResponse response) {
         AccessSourceLog.accessLog(request);
         if (PcOrMobile.isMobile(request)) {
@@ -68,7 +68,7 @@ public class IndexController {
         } else {
             return "v1/index";
         }
-    }*/
+    }
 
 
 }

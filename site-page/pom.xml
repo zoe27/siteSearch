@@ -113,7 +113,7 @@
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
-				<includes>
+				<!--<includes>
 					<include>static/salary/**/*</include>
 					<include>static/img/company/*</include>
 					<include>static/js/jquery-3.3.1.min.js</include>
@@ -123,7 +123,8 @@
 					<include>Dockerfile</include>
 					<include>salary/*.json</include>
 					<include>h5/**/*</include>
-				</includes>
+					<include>templates/**/*</include>
+				</includes>-->
 				<excludes>
 <!--					<exclude>**/*.json</exclude>-->
 				</excludes>
