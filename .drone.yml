@@ -9,22 +9,19 @@ volumes:
       path: /home/repository  # the machine directory
 
 steps:
-  - name: build
-    echo "hello world"
-
-#  - name: publish
-#    image: plugins/docker
-##    volumes:
-##      - name: targetJar
-##        path: /var/lib # the container directory
-#    settings:
-#      repo: zoe27/demo
-#      tags: latest
-#      dockerfile: dockerfilev1
-#      username:
-#        from_secret: push_user
-#      password:
-#        from_secret: push_pass
+  - name: publish
+    image: plugins/docker
+#    volumes:
+#      - name: targetJar
+#        path: /var/lib # the container directory
+    settings:
+      repo: zoe27/siteSearch
+      tags: latest
+      dockerfile: Dockerfile
+      username:
+        from_secret: push_user
+      password:
+        from_secret: push_pass
 
 trigger:
   branch:
