@@ -22,6 +22,8 @@ steps:
         from_secret: push_user
       password:
         from_secret: push_pass
+    script:
+      sleep 100
 
 trigger:
   branch:
