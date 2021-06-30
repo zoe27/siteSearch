@@ -9,6 +9,6 @@ RUN pwd
 RUN mvn clean -Dmaven.test.skip=true install -f pom.xml
 RUN ls /build/
 FROM java:8
-COPY --from=MAVEN_BUILD /build/target/*.jar ./site.jar
+COPY --from=MAVEN_BUILD /build/site-page/target/*.jar ./site.jar
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","site.jar"]
