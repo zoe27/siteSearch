@@ -9,25 +9,22 @@ volumes:
       path: /home/repository  # the machine directory
 
 steps:
-  - name: test
-    image: maven:3-jdk-8
-    settings:
-      repo: zoe27/siteSearch
-      tags: latest
-      dockerfile: Dockerfile
-      username:
-        from_secret: push_user
-      password:
-        from_secret: push_pass
-    commands:
-      - sleep 100
-      - mvn clean -Dmaven.test.skip=true install -f pom.xml
+#  - name: test
+#    image: maven:3-jdk-8
+#    settings:
+#      repo: zoe27/siteSearch
+#      tags: latest
+#      dockerfile: Dockerfile
+#      username:
+#        from_secret: push_user
+#      password:
+#        from_secret: push_pass
+#    commands:
+#      - sleep 100
+#      - mvn clean -Dmaven.test.skip=true install -f pom.xml
 
   - name: publish
     image: plugins/docker
-#    volumes:
-#      - name: targetJar
-#        path: /var/lib # the container directory
     settings:
       repo: zoe27/siteSearch
       tags: latest
