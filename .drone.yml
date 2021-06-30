@@ -26,7 +26,7 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: zoe27/siteSearch
+      repo: zoe27/sitesearch
       tags: latest
       dockerfile: Dockerfile
       username:
