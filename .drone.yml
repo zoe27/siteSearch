@@ -9,7 +9,6 @@ volumes:
       path: /home/repository  # the machine directory
 
 steps:
-
   - name: test
     image: maven:3-jdk-10
     settings:
@@ -22,8 +21,7 @@ steps:
         from_secret: push_pass
     commands:
       - sleep 100
-      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-      - mvn test -B
+      - mvn clean -Dmaven.test.skip=true install -f pom.xml
 
   - name: publish
     image: plugins/docker
