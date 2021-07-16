@@ -49,7 +49,7 @@ steps:
         - cd /home/repository
         - docker pull zoe27/sitesearch:latest
         - docker rm -f site-search || true # 这里这样是因为如果不存在docker-demo，rm会报错
-        - docker run -d -p 8081:8081 --link es:es --name site-search zoe27/sitesearch
+        - docker run -d -p 80:8081 --link es:es --name site-search zoe27/sitesearch
 trigger:
   branch:
     - master
