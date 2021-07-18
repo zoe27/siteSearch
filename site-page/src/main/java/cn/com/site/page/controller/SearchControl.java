@@ -2,12 +2,12 @@ package cn.com.site.page.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.com.site.page.util.AccessSourceLog;
+import cn.com.site.page.util.StopWords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
-import com.google.common.collect.Maps;
 
 import cn.com.site.page.dto.PageBean;
 import cn.com.site.page.dto.SiteResDto;
@@ -47,6 +43,12 @@ public class SearchControl {
                                                     HttpServletRequest request) {
         PageBean<List<SiteResDto>> pageBean = new PageBean<>();
         int from = begin * pageBean.getSize();
+        // remove stopwords, such as "推荐"
+        for (String stopWord : StopWords.stopWords) {
+            if (query.contains(stopWord)){
+                query = query.replace(stopWord, "");
+            }
+        }
         log.info("recive a requesr, params is : query = {}, begin = {}, limit = {}, from = {}", query, begin, limit, from);
         List<SiteResDto> list = searchService.searchByQuery(query, from, limit);
         log.warn("query is {}, result size is {}", query, list.size());

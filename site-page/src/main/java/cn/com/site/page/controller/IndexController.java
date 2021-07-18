@@ -32,19 +32,6 @@ public class IndexController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    //@RequestMapping("/index")
-    public String toIndex(HttpServletRequest request, HttpServletResponse response) {
-        // SearchResponse response =
-        // esclient.getData(ESConstant.ES_SITE_INFO.INDEX.getInfo(),ESConstant.ES_SITE_INFO.TYPE.getInfo(),"图片");
-        // return JSONObject.toJSONString(response);
-        AccessSourceLog.accessLog(request);
-        if (PcOrMobile.isMobile(request)) {
-            return "m/index";
-        } else {
-            return "v1/index";
-        }
-    }
-
     @RequestMapping("/result")
     public String result(HttpServletRequest request, HttpServletResponse response) {
         AccessSourceLog.accessLog(request);

@@ -10,14 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ESConstant {
 
-    // ES的ip列表
-    @Value("${es.ip}")
-    public static String NODE_IP;// = "192.168.199.186";//"172.17.0.2";//
-
-    // ES的端口
-    @Value("${es.port}")
-    public static int PORT;// = 9300;
-
     public enum ES_SITE_INFO {
         TYPE("site"),
         INDEX("perfectsite_v4"),

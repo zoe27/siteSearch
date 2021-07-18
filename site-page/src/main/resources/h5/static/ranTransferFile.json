@@ -1,7 +1,0 @@
-{
-	"data":[
-		{"company":"公司1","level":"T7","salary":"10K","location":"北京"},
-		{"company":"公司2","level":"T6","salary":"20K","location":"上海"},
-		{"company":"公司3","level":"T5","salary":"12K","location":"浙江"}
-	]
-}

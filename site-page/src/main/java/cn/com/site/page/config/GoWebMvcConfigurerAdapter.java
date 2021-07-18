@@ -49,9 +49,9 @@ public class GoWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         log.info("customer img path is {}", customImgPath);
         //配置静态资源处理
         registry.addResourceHandler("/**")
-                .addResourceLocations("resources/", "static/", "public/", "h5/",
+                .addResourceLocations("resources/", "static/", "public/",
                         "META-INF/resources/")
-                .addResourceLocations("classpath:resources/", "classpath:static/","classpath:h5/",
+                .addResourceLocations("classpath:resources/", "classpath:static/",
                         "classpath:public/", "classpath:META-INF/resources/")
                 .addResourceLocations(imageParentPath)
                 .addResourceLocations(customImgPath);
